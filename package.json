@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@react-google-maps/api": "^2.20.6",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
@@ -19,6 +20,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.13.1",
     "mongoose": "^8.10.1",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "react-icons": "^5.5.0",
+    "swiper": "^11.2.4"
   }
 }
