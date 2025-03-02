@@ -30,7 +30,7 @@ export default function Signin() {
       }
       setLoading(false);
       setError(null);
-      Navigate("/")
+      Navigate("/home")
     } catch (error) {
       setLoading(false);
       setError(error.message);

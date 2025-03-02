@@ -10,6 +10,8 @@ import SignIn from "./pages/SignIn.jsx";
 import Signup from "./pages/SignUp.jsx";
 import React from "react";
 import Footer from "./components/footer.jsx";
+import Scheduling from "./pages/Scheduling.jsx";
+import Payment from "./pages/Payment.jsx";
 
 
 export default function App() {
@@ -25,11 +27,13 @@ export default function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/service" element={<Service />} />
-          <Route path="/Scheduling" element={<Booking />} />
+          <Route path="/services" element={<Service />} />
+          <Route path="/scheduling" element={<Scheduling />} />
+          <Route path="/bookings" element={<Booking />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/payment" element={<Payment />} />
         </Routes>
       </main>
 
