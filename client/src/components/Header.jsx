@@ -9,10 +9,10 @@ const Header = () => {
 
   return (
     <header className="bg-gradient-to-r from-[#128178] to-[#0B3D5A] shadow-md w-full top-0 left-0 z-50">
-      <div className="container mx-auto flex justify-between items-center py-2 px-6">
+      <div className="container mx-auto flex justify-between items-center p-2 text-white">
       <div>
           <Link to="/">
-            <img src={logo} alt="Logo" className="h-24 w-auto" />
+            <img src={logo} alt="Logo" className="h-28 w-auto" />
           </Link>
         </div>
 
@@ -38,9 +38,11 @@ const Header = () => {
 
         {/* CTA Button */}
         <div className="hidden md:block">
+          <Link to={"/services"}>
           <button className="bg-[#128178] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#0B3D5A] font-semibold ">
             Book a Ride
           </button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}

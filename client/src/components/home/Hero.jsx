@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import heroImage from "../../assets/hero.png"; 
 
 const HeroSection = () => {
@@ -12,9 +13,11 @@ const HeroSection = () => {
           <p className="mt-4 text-lg">
             Comfort, care, and accessibility—because your journey matters.
           </p>
+          <Link to={"/services"}>
           <button className="mt-6 bg-[#128178] hover:bg-[#0B3D5A] text-white px-6 py-3 rounded-lg shadow-lg transition">
             Book a Ride Now
           </button>
+          </Link>
         </div>
 
         {/* Image */}

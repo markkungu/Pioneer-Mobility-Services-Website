@@ -8,31 +8,25 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const booking = async (req, res, next) => {
     try {
-        console.log("Received booking request:", req.body);
-        const { bookingData, paymentMethodId } = req.body;
+        const { bookingData } = req.body;
 
         // ✅ Validate input fields
         if (!bookingData || !bookingData.origin || !bookingData.destination || 
-            !bookingData.date || !bookingData.time || !bookingData.total_price || !paymentMethodId) {
-            return next(errorHandler(400, "All booking fields and paymentMethodId are required"));
+            !bookingData.date || !bookingData.time || !bookingData.total_price ) {
+            return next(errorHandler(400, "All booking fields are required"));
         }
 
         // ✅ Convert price to cents
-        const amount = Math.round(bookingData.total_price * 100); // Ensure amount is in cents
-        console.log("Amount in cents:", amount);
+        const amount = Math.round(bookingData.total_price * 100); 
 
         let paymentIntent;
-
         try {
             // ✅ Step 1: Create PaymentIntent
             paymentIntent = await stripe.paymentIntents.create({
                 amount,
                 currency: "usd",
-                payment_method: paymentMethodId, // Attach payment method
-                confirm: true, // Auto-confirm payment
                 automatic_payment_methods: {
-                    enabled: true,
-                    allow_redirects: "never", // Prevents needing return_url
+                    enabled: true,  
                 },
             });
         } catch (stripeError) {
@@ -40,37 +34,44 @@ export const booking = async (req, res, next) => {
             return next(errorHandler(400, stripeError.message || "Payment failed, try again"));
         }
 
-        // ✅ Check if payment was successful
-        if (paymentIntent.status !== "succeeded") {
-            return next(errorHandler(400, "Payment failed, try again"));
-        }
-
-        // ✅ Step 2: Save the booking after successful payment
-        const newBooking = new Booking({
-            origin: bookingData.origin,
-            destination: bookingData.destination,
-            date: bookingData.date,
-            time: bookingData.time,
-            service: bookingData.service?.id 
-                ? { id: bookingData.service.id, name: bookingData.service.name, base_price: bookingData.service.base_price }
-                : null, // Prevents validation error if service is missing
-            distance: bookingData.distance,
-            duration: bookingData.duration,
-            total_price: bookingData.total_price,
-        });
-        
-
-        await newBooking.save();
-
-        // ✅ Step 3: Send success response
-        res.status(201).json({
-            message: "Booking created successfully",
-            paymentIntentId: paymentIntent.id,
+        // ✅ Send clientSecret to frontend for confirmation
+        res.status(200).json({
             clientSecret: paymentIntent.client_secret,
-            newBooking
+            paymentIntentId: paymentIntent.id, // Send PaymentIntent ID for verification
         });
+
     } catch (error) {
         console.log("Error processing booking:", error);
+        next(errorHandler(500, "Internal server error"));
+    }
+};
+
+export const saveBooking = async (req, res, next) => {
+    try {
+        const { bookingData, paymentIntentId } = req.body;
+
+        if (!bookingData || !paymentIntentId) {
+            return next(errorHandler(400, "Missing booking data or paymentIntentId"));
+        }
+
+        // ✅ Step 1: Retrieve PaymentIntent from Stripe
+        const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+
+        if (!paymentIntent || paymentIntent.status !== "succeeded") {
+            return next(errorHandler(400, "Payment not verified"));
+        }
+
+        // ✅ Step 2: Save booking details in MongoDB
+        const newBooking = new Booking(bookingData);
+        await newBooking.save();
+
+        res.status(201).json({
+            message: "Booking saved successfully!",
+            booking: newBooking
+        });
+
+    } catch (error) {
+        console.error("Error saving booking:", error);
         next(errorHandler(500, "Internal server error"));
     }
 };
