@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const {currentUser} = useSelector((state) => state.user);
+  console.log(currentUser);
 
   return (
     <header className="bg-gradient-to-r from-[#128178] to-[#0B3D5A] shadow-md w-full top-0 left-0 z-50">
@@ -74,10 +75,19 @@ const Header = () => {
               {item}
             </Link>
           ))}
-          
-          <button className="bg-[#0B3D5A] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#128178]">
-            Book a Ride
-          </button>
+           {currentUser ? (
+    <Link to="/services">
+      <button className="bg-[#128178] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#0B3D5A] font-semibold">
+        Book a Ride
+      </button>
+    </Link>
+  ) : (
+    <Link to="/signin">
+      <button className="bg-[#0B3D5A] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#128178] font-semibold">
+        Sign Up
+      </button>
+    </Link>
+  )}
         </nav>
       )}
     </header>
