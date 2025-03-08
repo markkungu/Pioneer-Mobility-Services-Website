@@ -19,16 +19,19 @@ export default function Booking() {
     destination: "",
     date: "",
     time: "",
-    serviceTitle: service.title, // Store service title
+    service: {
+      id: service.id,
+      name: service.title,
+      base_price: service.base_price,
+    },
+    distance: "",
+    duration: "",
+    total_price: "",
   });
 
   const [map, setMap] = useState(null);
-  const [directions, setDirections] = useState(null);
-  const [distance, setDistance] = useState(null);
-  const [duration, setDuration] = useState(null);
   const [originCoords, setOriginCoords] = useState(null);
   const [destinationCoords, setDestinationCoords] = useState(null);
-  const [price, setPrice] = useState(0);
 
   useEffect(() => {
     if (isLoaded && map) {
@@ -55,57 +58,50 @@ export default function Booking() {
     }
   }, [isLoaded, map]);
 
+  useEffect(() => {
+    if (formData.origin && formData.destination) {
+      const directionsService = new window.google.maps.DirectionsService();
+      directionsService.route(
+        {
+          origin: formData.origin,
+          destination: formData.destination,
+          travelMode: window.google.maps.TravelMode.DRIVING,
+        },
+        (result, status) => {
+          if (status === "OK") {
+            const route = result.routes[0].legs[0];
+            const km = parseFloat(route.distance.text.replace(" km", ""));
+            const totalPrice = service.base_price + km * 10;
+
+            setFormData((prev) => ({
+              ...prev,
+              distance: route.distance.text,
+              duration: route.duration.text,
+              total_price: totalPrice.toFixed(2),
+            }));
+
+            setOriginCoords(route.start_location);
+            setDestinationCoords(route.end_location);
+          } else {
+            console.error("Directions request failed due to " + status);
+          }
+        }
+      );
+    }
+  }, [formData.origin, formData.destination, service.base_price]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const calculateDistance = (event) => {
-    event.preventDefault();
-    const { origin, destination } = formData;
-    if (!origin || !destination) {
-      console.error("Both origin and destination are required to calculate distance.");
-      return;
-    }
-
-    const directionsService = new window.google.maps.DirectionsService();
-    directionsService.route(
-      {
-        origin,
-        destination,
-        travelMode: window.google.maps.TravelMode.DRIVING,
-      },
-      (result, status) => {
-        if (status === "OK") {
-          setDirections(result);
-          const route = result.routes[0].legs[0];
-          setDistance(route.distance.text);
-          setDuration(route.duration.text);
-
-          setOriginCoords(route.start_location);
-          setDestinationCoords(route.end_location);
-
-          // Calculate price based on distance (assuming per km rate of 10)
-          const km = parseFloat(route.distance.text.replace(" km", ""));
-          const totalPrice = service.base_price + km * 10;
-          setPrice(totalPrice);
-        } else {
-          console.error("Directions request failed due to " + status);
-        }
-      }
-    );
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    const bookingData = {
-      ...formData,
-      distance,
-      duration,
-      price,
-    };
-    console.log(bookingData);
-    navigate("/payment", { state: { bookingData } });
-    
+    if (!formData.date || !formData.time || !formData.origin || !formData.destination) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+    navigate("/payment", { state: formData });
+3
   };
 
   if (!isLoaded) return <div>Loading...</div>;
@@ -164,23 +160,20 @@ export default function Booking() {
           />
         </Autocomplete>
 
-        <button type="button" onClick={calculateDistance} className="bg-blue-500 text-white p-2 rounded-lg">
-          Calculate Distance
-        </button>
-
-        {distance && duration && (
+        {/* Automatically Display Distance, Duration & Price */}
+        {formData.distance && formData.duration && (
           <p className="text-lg font-semibold">
-            Distance: {distance} | Estimated Time: {duration}
+            Distance: {formData.distance} | Estimated Time: {formData.duration}
           </p>
         )}
 
-        {price > 0 && (
-          <p className="text-lg font-semibold text-green-600">Total Price: ${price.toFixed(2)}</p>
+        {formData.total_price && (
+          <p className="text-lg font-semibold text-green-600">Total Price: ${formData.total_price}</p>
         )}
 
-        <input type="date" id="date" value={formData.date} onChange={handleChange} className="p-2 border rounded-lg" />
+        <input type="date" id="date" value={formData.date} onChange={handleChange} className="p-2 border rounded-lg" required />
 
-        <input type="time" id="time" value={formData.time} onChange={handleChange} className="p-2 border rounded-lg" />
+        <input type="time" id="time" value={formData.time} onChange={handleChange} className="p-2 border rounded-lg" required />
 
         <button type="submit" className="bg-[#128178] text-white p-2 rounded-lg">
           Proceed to Payment

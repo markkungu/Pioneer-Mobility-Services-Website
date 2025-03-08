@@ -2,107 +2,93 @@ import React, { useEffect, useState } from "react";
 import { useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const stripePromise = loadStripe("pk_test_51QyDOpFkFc9MmOZc610AzrUEzDBuRZX41PCubdYY7vBiZVAlSaAYj9CQ9wkyK31MneUKyFtRL0XGsfuF09wrs5bP00fiqQQjaz");
 
-const PaymentForm = ({ bookingData, amount }) => {
+const PaymentForm = ({ bookingData, amount, clientSecret }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const { currentUser } = useSelector((state) => state.user) || {};
 
   const [errorMessage, setErrorMessage] = useState(null);
-  const [clientSecret, setClientSecret] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const Navigate = useNavigate();
-  const token = localStorage.getItem("token"); // Retrieve token
-  console.log(localStorage.getItem("token"));
+  const [updatedBookingData, setUpdatedBookingData] = useState(null);
 
   useEffect(() => {
-    if (!bookingData || !bookingData.total_price) return;
+    if (!bookingData || !bookingData.total_price || !currentUser) return;
 
-    fetch("http://localhost:3000/api/user/booking", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}`, //  Send token properly
-       },
-      body: JSON.stringify({
-        bookingData,
-       
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret))
-      .catch((error) => setErrorMessage(error.message));
-  }, [bookingData]); // ✅ Use bookingData as dependency
+    setUpdatedBookingData({
+      ...bookingData,
+      userId: currentUser._id,
+      userName: currentUser.name,
+    });
+  }, [bookingData, currentUser]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     if (!stripe || !elements) {
-        setErrorMessage("Stripe is not initialized.");
-        setLoading(false);
-        return;
+      setErrorMessage("Stripe is not initialized.");
+      setLoading(false);
+      return;
     }
 
-    // Submit payment fields
     const { error: submitError } = await elements.submit();
     if (submitError) {
-        setErrorMessage(submitError.message);
-        setLoading(false);
-        return;
+      setErrorMessage(submitError.message);
+      setLoading(false);
+      return;
     }
 
-    // ✅ Confirm payment without redirecting
     const { paymentIntent, error } = await stripe.confirmPayment({
-        elements,
-        clientSecret,
-        redirect: "if_required", // Prevents redirection
+      elements,
+      clientSecret,
+      redirect: "if_required",
     });
 
     if (error) {
-        setErrorMessage(error.message);
-        setLoading(false);
-        return;
+      setErrorMessage(error.message);
+      setLoading(false);
+      return;
     }
 
-    console.log("✅ Payment Successful:", paymentIntent);
-
     if (paymentIntent.status === "succeeded") {
-        // ✅ Save booking after payment success
-        fetch("http://localhost:3000/api/user/saveBooking", {
-            method: "POST",
-            headers: { "Content-Type": "application/json"
-              },
-            body: JSON.stringify({
-                bookingData,
-                paymentIntentId: paymentIntent.id, // Send PaymentIntent ID for verification
-            }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log("✅ Booking saved:", data);
-                alert("Booking confirmed!");
-            })
-            .catch((err) => console.error("❌ Error saving booking:", err));
+      const finalBookingData = {
+        ...updatedBookingData,
+        paymentIntentId: paymentIntent.id,
+      };
 
-            Navigate('/bookings')
+      fetch("http://localhost:3000/api/user/saveBooking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bookingData: finalBookingData ,paymentIntentId: paymentIntent.id}),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          alert("Booking confirmed!");
+          navigate("/bookings");
+        })
+        .catch((err) => console.error("Error saving booking:", err));
     } else {
-        setErrorMessage("Payment not completed.");
+      setErrorMessage("Payment not completed.");
     }
 
     setLoading(false);
-};
+  };
 
-
-  if (!clientSecret || !stripe || !elements) {
-    return <div>Loading...</div>; // ✅ Fixed condition
+  if (!clientSecret) {
+    return <div>Loading...</div>;
   }
 
   return (
     <form onSubmit={handleSubmit} className="p-2 m-4 border rounded-lg">
       <h2 className="text-lg font-bold mb-2">Enter Payment Details</h2>
-      <PaymentElement /> {/* ✅ Correctly using PaymentElement */}
+      <PaymentElement />
       {errorMessage && <div className="text-red-500">{errorMessage}</div>}
       <button
         type="submit"
@@ -115,35 +101,30 @@ const PaymentForm = ({ bookingData, amount }) => {
   );
 };
 
-const Payment = ({ data }) => {
-  const [bookingData] = useState({
-    origin: "Nairobi",
-    destination: "Mombasa",
-    date: "2025-03-05",
-    time: "14:00",
-    service: {
-      id: 1,
-      name: "Premium Ride",
-      base_price: 100,
-    },
-    distance: "500km",
-    duration: "5 hours",
-    total_price: 500,
-  });
-
-  const amount = Math.round(bookingData.total_price * 100);
+const Payment = () => {
+  const location = useLocation();
+  const data = location.state;
   const [clientSecret, setClientSecret] = useState(null);
+  const amount = Math.round(data?.total_price * 100);
 
   useEffect(() => {
+    if (!data) return;
+
     fetch("http://localhost:3000/api/user/booking", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ bookingData }),
+      body: JSON.stringify({ bookingData: data }),
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret))
+      .then((response) => {
+        if (response.clientSecret) {
+          setClientSecret(response.clientSecret);
+        } else {
+          console.error("Error: clientSecret not received.");
+        }
+      })
       .catch((err) => console.error("Error fetching clientSecret:", err));
-  }, []);
+  }, [data]);
 
   if (!clientSecret) {
     return <p>Loading payment...</p>;
@@ -151,7 +132,7 @@ const Payment = ({ data }) => {
 
   return (
     <Elements stripe={stripePromise} options={{ clientSecret }}>
-      <PaymentForm bookingData={bookingData} amount={amount} />
+      <PaymentForm bookingData={data} amount={amount} clientSecret={clientSecret} />
     </Elements>
   );
 };

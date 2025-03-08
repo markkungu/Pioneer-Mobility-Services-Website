@@ -20,7 +20,7 @@ const services = [
     description:
       "Ideal for patients who can walk but need assistance getting to medical appointments. Safe and comfortable rides provided.",
     image: ambulance, 
-    base_price: 40
+    base_price: 60
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ const services = [
     description:
       "Reliable transport for students with special needs, ensuring they reach school and return home safely and on time.",
     image: school, 
-    base_price: 30
+    base_price: 40
   },
   {
     id: 4,
@@ -36,7 +36,7 @@ const services = [
     description:
       "Non-emergency medical transportation with extra care, ensuring patients get to their destination safely and comfortably.",
     image: cab, 
-    base_price: 60
+    base_price: 30
   },
 ];
 

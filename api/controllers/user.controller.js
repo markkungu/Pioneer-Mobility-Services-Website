@@ -50,28 +50,45 @@ export const saveBooking = async (req, res, next) => {
     try {
         const { bookingData, paymentIntentId } = req.body;
 
+        // ✅ Ensure required data is provided
         if (!bookingData || !paymentIntentId) {
             return next(errorHandler(400, "Missing booking data or paymentIntentId"));
         }
 
-        // ✅ Step 1: Retrieve PaymentIntent from Stripe
+        // ✅ Retrieve PaymentIntent from Stripe for verification
         const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
 
         if (!paymentIntent || paymentIntent.status !== "succeeded") {
             return next(errorHandler(400, "Payment not verified"));
         }
 
-        // ✅ Step 2: Save booking details in MongoDB
-        const newBooking = new Booking(bookingData);
+        // ✅ Ensure `total_price` is stored as a number
+        bookingData.total_price = parseFloat(bookingData.total_price);
+
+        // ✅ Save booking details in MongoDB
+        const newBooking = new Booking({
+            userId: bookingData.userId || null, // Ensure user ID is included
+            userName: bookingData.userName || "Guest",
+            origin: bookingData.origin,
+            destination: bookingData.destination,
+            distance: bookingData.distance,
+            duration: bookingData.duration,
+            service: bookingData.service,
+            date: bookingData.date,
+            time: bookingData.time,
+            total_price: bookingData.total_price,
+            paymentIntentId: paymentIntent.id, // Store paymentIntentId for reference
+        });
+
         await newBooking.save();
 
         res.status(201).json({
-            message: "Booking saved successfully!",
-            booking: newBooking
+            message: "✅ Booking saved successfully!",
+            booking: newBooking,
         });
 
     } catch (error) {
-        console.error("Error saving booking:", error);
+        console.error("❌ Error saving booking:", error);
         next(errorHandler(500, "Internal server error"));
     }
 };
