@@ -9,20 +9,25 @@ const stripePromise = loadStripe("pk_test_51QyDOpFkFc9MmOZc610AzrUEzDBuRZX41PCub
 const PaymentForm = ({ bookingData, amount }) => {
   const stripe = useStripe();
   const elements = useElements();
+
   const [errorMessage, setErrorMessage] = useState(null);
   const [clientSecret, setClientSecret] = useState(null);
   const [loading, setLoading] = useState(false);
+
   const Navigate = useNavigate();
+  const token = localStorage.getItem("token"); // Retrieve token
+  console.log(localStorage.getItem("token"));
 
   useEffect(() => {
     if (!bookingData || !bookingData.total_price) return;
 
     fetch("http://localhost:3000/api/user/booking", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}`, //  Send token properly
+       },
       body: JSON.stringify({
         bookingData,
-        
+       
       }),
     })
       .then((res) => res.json())
@@ -67,7 +72,8 @@ const PaymentForm = ({ bookingData, amount }) => {
         // ✅ Save booking after payment success
         fetch("http://localhost:3000/api/user/saveBooking", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json"
+              },
             body: JSON.stringify({
                 bookingData,
                 paymentIntentId: paymentIntent.id, // Send PaymentIntent ID for verification

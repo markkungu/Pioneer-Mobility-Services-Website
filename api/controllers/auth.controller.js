@@ -37,14 +37,14 @@ export const signIn = async (req, res, next) => {
             return next(errorHandler(400, "User has no password"));
         }
         const isPasswordValid = await bcrypt.compare(password, user.password);
+        const {password: pass, ...rest} = user._doc;
         
         if (!isPasswordValid) {
             return next(errorHandler(401, "Invalid credentials"));
         }
 
-        res.cookie("token", generateTokens(user._id.toString()), {  httpOnly: true,
-            secure: true, // ✅ Must be true for HTTPS
-            sameSite: "None",  }).json({ message: "Login successful" });
+        res.cookie("token", generateTokens(user._id.toString()), {  httpOnly: true, secure: false,  // Set to `true` in production with HTTPS
+            sameSite: "lax", }).json(rest);
 
     } catch (error) {
         next(error);

@@ -182,7 +182,7 @@ export default function Booking() {
 
         <input type="time" id="time" value={formData.time} onChange={handleChange} className="p-2 border rounded-lg" />
 
-        <button type="submit" className="bg-green-500 text-white p-2 rounded-lg">
+        <button type="submit" className="bg-[#128178] text-white p-2 rounded-lg">
           Proceed to Payment
         </button>
       </div>

@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import logo from "../assets/LOGO PNG/header.png";
 import react from "react";
+import { useSelector } from "react-redux";
+
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const {currentUser} = useSelector((state) => state.user);
 
   return (
     <header className="bg-gradient-to-r from-[#128178] to-[#0B3D5A] shadow-md w-full top-0 left-0 z-50">
@@ -71,6 +74,7 @@ const Header = () => {
               {item}
             </Link>
           ))}
+          
           <button className="bg-[#0B3D5A] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#128178]">
             Book a Ride
           </button>
