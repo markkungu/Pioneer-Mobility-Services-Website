@@ -7,12 +7,37 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
-    alert("Your message has been sent!");
+    try {
+      console.log("Form Submitted:", formData);
+  
+      const response = await fetch("http://localhost:3000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sender: formData.email,
+          subject: `Contact Form Submission from ${formData.name}`,
+          message: formData.message,
+        }),
+        credentials: "include",
+      });
+  
+      const data = await response.json();
+      console.log("📩 Server Response:", data); // Debugging log
+  
+      if (data.success) {
+        alert("✅ Email successfully sent!");
+      } else {
+        alert("❌ Failed to send email, please try again later!");
+      }
+    } catch (err) {
+      console.error("❌ Error sending email:", err);
+    }
+  
     setFormData({ name: "", email: "", message: "" });
   };
+  
 
   return (
     <section className="bg-gray-100 py-16 px-6">
@@ -65,18 +90,8 @@ const Contact = () => {
             <p className="text-gray-700 mb-2"><strong>Email:</strong> info@nemtservices.com</p>
             <p className="text-gray-700 mb-4"><strong>Address:</strong> 123 Medical St, Washington, USA</p>
 
-            {/* Google Map Embed */}
-            <div className="rounded-lg overflow-hidden shadow-md">
-              <iframe
-                title="Business Location"
-                width="100%"
-                height="250"
-                loading="lazy"
-                style={{ border: "0" }}
-                src="https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_MAPS_API_KEY&q=Seattle,WA"
-                allowFullScreen
-              ></iframe>
-            </div>
+           
+           
           </div>
         </div>
       </div>

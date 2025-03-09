@@ -92,3 +92,30 @@ export const saveBooking = async (req, res, next) => {
         next(errorHandler(500, "Internal server error"));
     }
 };
+
+
+
+export const getBookings = async (req, res, next) => {
+    if (req.user.id === req.query.id) {
+        // console.log(req.user.id, req.query.id);
+        
+        try {
+    
+          // Find all bookings where `userId` matches the given ID
+          const bookings = await Booking.find({ userId: req.query.id });
+      console.log(bookings);
+          if (!bookings || bookings.length === 0) {
+            return res.status(404).json({ message: "No bookings found for this user" });
+          }
+      
+          res.status(200).json(bookings);
+        } catch (error) {
+          console.error("Error fetching bookings:", error);
+          res.status(500).json({ message: "Server error" });
+        }
+    }
+    else{
+        return next(errorHandler(401, "you can only view your own bookings"));
+    }
+};
+

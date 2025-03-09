@@ -9,8 +9,9 @@ const protect = async (req, res, next) => {
         console.log("Extracted Token:", token); // Debugging
 
         try {
+            
             const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify token
-            req.user = await User.findById(decoded.id).select("-password"); // Attach user to req
+            req.user = await User.findById(decoded).select("-password"); // Attach user to req
             console.log("Authenticated User:", req.user);
             return next(); // Move to next middleware
         } catch (error) {
