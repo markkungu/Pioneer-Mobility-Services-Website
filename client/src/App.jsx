@@ -13,6 +13,7 @@ import Footer from "./components/footer.jsx";
 import Scheduling from "./pages/Scheduling.jsx";
 import Payment from "./pages/Payment.jsx";
 import PrivateRouter from "./components/PrivateRouter.jsx";
+import Profile from "./pages/Profile.jsx";
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
               <Route path="/scheduling" element={<Scheduling />} />
               <Route path="/payment" element={<Payment />} />
             </Route>
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </main>
 

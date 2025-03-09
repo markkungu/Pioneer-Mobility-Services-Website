@@ -119,3 +119,31 @@ export const getBookings = async (req, res, next) => {
     }
 };
 
+
+export const getProfile = async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id).select("-password"); // Exclude password
+      if (!user) return res.status(404).json({ message: "User not found" });
+  
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: "Server error" });
+    }
+  };
+  
+  // UPDATE user profile
+  export const updateProfile = async (req, res) => {
+    try {
+      const { firstName, lastName, phone, password } = req.body;
+  
+      const updatedUser = await User.findByIdAndUpdate(
+        req.user.id,
+        { firstName, lastName, phone, password },
+        { new: true }
+      );
+  
+      res.json(updatedUser);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update profile" });
+    }
+  };
