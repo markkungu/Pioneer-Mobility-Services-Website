@@ -2,6 +2,8 @@ import { errorHandler } from "../utils/error.js";
 import Booking from "../models/booking.model.js"; // Ensure correct model import
 import Stripe from "stripe";
 import dotenv from "dotenv";
+import User from "../models/user.model.js";
+import bcrypt from "bcryptjs";
 
 dotenv.config();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -113,11 +115,11 @@ export const getBookings = async (req, res, next) => {
           console.error("Error fetching bookings:", error);
           res.status(500).json({ message: "Server error" });
         }
-    }
+   // }
     // else{
     //     return next(errorHandler(401, "you can only view your own bookings"));
     // }
-// };
+ };
 
 export const deleteBooking = async (req, res) => {
     try {
@@ -134,7 +136,9 @@ export const deleteBooking = async (req, res) => {
 };
 export const getProfile = async (req, res) => {
     try {
-      const user = await User.findById(req.user.id).select("-password"); // Exclude password
+        
+      const user = await User.findById(req.query.id).select("-password"); //  Exclude password
+      
       if (!user) return res.status(404).json({ message: "User not found" });
   
       res.json(user);
@@ -146,16 +150,46 @@ export const getProfile = async (req, res) => {
   // UPDATE user profile
   export const updateProfile = async (req, res) => {
     try {
-      const { firstName, lastName, phone, password } = req.body;
-  
-      const updatedUser = await User.findByIdAndUpdate(
-        req.user.id,
-        { firstName, lastName, phone, password },
-        { new: true }
-      );
-  
-      res.json(updatedUser);
+
+        //console.log(req.body);
+      if(req.body.password){
+        req.body.password = await bcrypt.hashSync(req.body.password, 10);
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(req.query.id, 
+        { $set:
+            {
+                fname: req.body.fname,
+                lname: req.body.lname,
+                email: req.body.email,
+                number: req.body.number,
+                password: req.body.password,
+            },
+         }, { new: true });
+        // Exclude password before sending response
+        console.log(updatedUser);
+        const { password: pass, ...rest } = updatedUser._doc;
+        res.json(rest);
+      } catch (error) {
+        console.error("Update Error:", error);
+        res.status(500).json({ message: "Failed to update profile" });
+      }
+ };
+
+export const deleteProfile = async (req, res) => {
+    try {
+      const deletedUser = await User.findByIdAndDelete(req.query.id);
+      if (!deletedUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.clearCookie('token');
+      res.status(200).json({ message: "User deleted successfully" });
     } catch (error) {
-      res.status(500).json({ message: "Failed to update profile" });
+      console.error("Error deleting user:", error);
+      res.status(500).json({ message: "Server error" });
     }
   };
+
+export const signOut = async (req, res) => {
+
+}

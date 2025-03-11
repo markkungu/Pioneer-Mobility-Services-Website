@@ -20,15 +20,15 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation !!!!! change name !!!! */}
         <nav className="hidden md:flex space-x-6">
           {[
             "Home",
             "About",
             "Services",
-            "Scheduling",
-            "Blog",
+            "bookings",
             "Contact",
+            "Profile",
           ].map((item) => (
             <Link
               key={item}

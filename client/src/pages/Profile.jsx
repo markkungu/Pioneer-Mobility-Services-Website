@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { updateUSerStart, updateUSerSuccess, updateUSerFailure, deleteUSerStart, deleteUSerSuccess, deleteUSerFailure} from "../redux/user/userSlice.js";
 const Profile = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
 
   const [isEditing, setIsEditing] = useState(false);
   const [updatedUser, setUpdatedUser] = useState({
@@ -12,32 +12,72 @@ const Profile = () => {
     number: currentUser?.number || "",
     password: "",
   });
-
+   const dispatch = useDispatch();
   // Handle input changes
   const handleChange = (e) => {
     setUpdatedUser({ ...updatedUser, [e.target.name]: e.target.value });
   };
 
   // Submit updated profile
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     try {
-      await fetch("http://localhost:3000/api/auth/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedUser),
-        credentials: "include",
-      });
-
+      dispatch(updateUSerStart());
+  
+      // Store response in a variable
+      const res = await fetch(
+        `http://localhost:3000/api/user/updateprofile?id=${currentUser?._id}`,
+        {
+          method: "PUT", // Check if your backend expects "PUT" instead
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedUser),
+          credentials: "include",
+        }
+      );
+  
+      const data = await res.json(); 
+      if (data.success === false) {
+        dispatch(updateUSerFailure(data.message));
+        return;
+      }
+  
+      dispatch(updateUSerSuccess(data));
       setIsEditing(false);
       alert("Profile updated successfully!");
     } catch (error) {
-      console.error("Error updating profile:", error);
-      alert("Failed to update profile.");
+      dispatch(updateUSerFailure(error.message));
     }
   };
+   
+const handleDelete = async () => {
+  try {
+    dispatch(deleteUSerStart());
 
+    // Store response in a variable
+    const res = await fetch(
+      `http://localhost:3000/api/user/deleteprofile?id=${currentUser?._id}`,
+      {
+        method: "DELETE", // Check if your backend expects "PUT" instead
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
+
+    const data = await res.json(); 
+    if (data.success === false) {
+      dispatch(deleteUSerFailure(data.message));
+      return;
+    }
+
+    dispatch(deleteUSerSuccess(data));
+      }catch (error) {
+        dispatch(deleteUSerFailure(error.message));
+      }
+}
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-semibold text-center text-gray-800">Profile</h2>
@@ -48,6 +88,7 @@ const Profile = () => {
           type="text"
           name="fname"
           placeholder={currentUser?.fname || "Enter your first name"}
+          defaultValue={currentUser?.fname}
           value={isEditing ? updatedUser.fname : ""}
           onChange={handleChange}
           disabled={!isEditing}
@@ -61,6 +102,7 @@ const Profile = () => {
           type="text"
           name="lname"
           placeholder={currentUser?.lname || "Enter your last name"}
+          defaultValue={currentUser?.lname}
           value={isEditing ? updatedUser.lname : ""}
           onChange={handleChange}
           disabled={!isEditing}
@@ -74,6 +116,7 @@ const Profile = () => {
           type="email"
           name="email"
           placeholder={currentUser?.email || "Enter your email"}
+          defaultValue={currentUser?.email}
           value={currentUser?.email} // Email should not be editable
           className="w-full p-2 border rounded-lg bg-gray-100"
           disabled
@@ -87,6 +130,7 @@ const Profile = () => {
           name="number"
           placeholder={currentUser?.number || "Enter your phone number"}
           value={isEditing ? updatedUser.number : ""}
+          defaultValue={currentUser?.number}
           onChange={handleChange}
           disabled={!isEditing}
           className="w-full p-2 border rounded-lg"
@@ -99,6 +143,7 @@ const Profile = () => {
           type="password"
           name="password"
           placeholder="********"
+          defaultValue={currentUser?.password}
           value={isEditing ? updatedUser.password : ""}
           onChange={handleChange}
           disabled={!isEditing}
@@ -113,10 +158,11 @@ const Profile = () => {
               onClick={handleUpdate}
               className="bg-green-500 text-white px-4 py-2 rounded-lg"
             >
-              Save
+             {loading ? "Updating..." : "Update Profile"}
             </button>
             <button
               onClick={() => setIsEditing(false)}
+              disabled={loading}
               className="bg-gray-500 text-white px-4 py-2 rounded-lg"
             >
               Cancel
@@ -131,6 +177,23 @@ const Profile = () => {
           </button>
         )}
       </div>
+      <div className="flex flex-row justify-between mt-4">
+      <button
+              onClick={handleDeleteUSer}
+              disabled={loading}
+              className="bg-gray-500 text-white px-4 py-2 rounded-lg"
+            >
+              delete account
+            </button>
+            <button
+              onClick={handleSignOut}
+              disabled={loading}
+              className="bg-gray-500 text-white px-4 py-2 rounded-lg"
+            >
+             sign out
+            </button>
+      </div>
+      <p className="text-red-700 mt-4">{error ? error : ''}</p>
     </div>
   );
 };
