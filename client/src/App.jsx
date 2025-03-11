@@ -29,13 +29,13 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/services" element={<Service />} />
-            <Route path="/bookings" element={<Booking />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<Signup />} />
             <Route element={<PrivateRouter />}>
               <Route path="/scheduling" element={<Scheduling />} />
               <Route path="/payment" element={<Payment />} />
+              <Route path="/bookings" element={<Booking />} />
             </Route>
             <Route path="/profile" element={<Profile />} />
           </Routes>

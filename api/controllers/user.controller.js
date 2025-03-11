@@ -96,7 +96,7 @@ export const saveBooking = async (req, res, next) => {
 
 
 export const getBookings = async (req, res, next) => {
-    if (req.user.id === req.query.id) {
+    // if (req.user.id === req.query.id) {
         // console.log(req.user.id, req.query.id);
         
         try {
@@ -114,12 +114,24 @@ export const getBookings = async (req, res, next) => {
           res.status(500).json({ message: "Server error" });
         }
     }
-    else{
-        return next(errorHandler(401, "you can only view your own bookings"));
+    // else{
+    //     return next(errorHandler(401, "you can only view your own bookings"));
+    // }
+// };
+
+export const deleteBooking = async (req, res) => {
+    try {
+        const deletedBooking = await Booking.findByIdAndDelete(req.query.id);
+        if (!deletedBooking) {
+            return res.status(404).json({ message: "Booking not found" });
+        }
+
+        res.status(200).json({ message: "Booking deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting booking:", error);
+        res.status(500).json({ message: "Server error" });
     }
 };
-
-
 export const getProfile = async (req, res) => {
     try {
       const user = await User.findById(req.user.id).select("-password"); // Exclude password

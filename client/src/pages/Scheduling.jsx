@@ -6,9 +6,10 @@ const libraries = ["places"];
 
 export default function Booking() {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyAePhvWbc6DrGM2bpD0S0QYXhroZaf0DGo",
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
     libraries,
   });
+  console.log("API Key:", import.meta.env.VITE_GOOGLE_MAPS_API_KEY);
 
   const location = useLocation();
   const navigate = useNavigate();
