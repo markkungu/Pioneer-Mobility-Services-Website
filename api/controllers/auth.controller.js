@@ -52,14 +52,22 @@ export const signIn = async (req, res, next) => {
 };
 
 
-export const getUser = async (req, res,user) => {
-    // if (!user) {
-    //     return res.status(401).json({ message: "Not authorized, user not found" });
-    // }
+// export const getUser = async (req, res,user) => {
+//     // if (!user) {
+//     //     return res.status(401).json({ message: "Not authorized, user not found" });
+//     // }
 
-    const { fname, lname, email } = await User.findById(req.user.id).select("fname lname email");
-    res.json({ fname, lname, email });
-};
-
+//     const { fname, lname, email } = await User.findById(req.user.id).select("fname lname email");
+//     res.json({ fname, lname, email });
+// };
+export const signOut = async (req, res) => {
+    try{
+        res.clearCookie('token');
+        res.status(200).json({ message: "User signed out successfully" });
+    } catch (error) {
+        console.error("Error signing out user:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+    }
 
 

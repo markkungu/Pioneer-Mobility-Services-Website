@@ -190,6 +190,4 @@ export const deleteProfile = async (req, res) => {
     }
   };
 
-export const signOut = async (req, res) => {
 
-}

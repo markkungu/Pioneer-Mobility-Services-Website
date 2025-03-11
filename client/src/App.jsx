@@ -36,8 +36,8 @@ export default function App() {
               <Route path="/scheduling" element={<Scheduling />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/bookings" element={<Booking />} />
+              <Route path="/profile" element={<Profile />} />
             </Route>
-            <Route path="/profile" element={<Profile />} />
           </Routes>
         </main>
 

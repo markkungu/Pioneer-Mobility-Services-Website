@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUSerStart, updateUSerSuccess, updateUSerFailure, deleteUSerStart, deleteUSerSuccess, deleteUSerFailure} from "../redux/user/userSlice.js";
+import { updateUSerStart, updateUSerSuccess, updateUSerFailure, deleteUSerStart, deleteUSerSuccess, deleteUSerFailure,  signOutUSerSuccess, signOutUSerFailure} from "../redux/user/userSlice.js";
 const Profile = () => {
   const { currentUser, loading, error } = useSelector((state) => state.user);
 
@@ -55,6 +55,7 @@ const handleDelete = async () => {
   try {
     dispatch(deleteUSerStart());
 
+    console.log(currentUser._id)
     // Store response in a variable
     const res = await fetch(
       `http://localhost:3000/api/user/deleteprofile?id=${currentUser?._id}`,
@@ -76,6 +77,27 @@ const handleDelete = async () => {
     dispatch(deleteUSerSuccess(data));
       }catch (error) {
         dispatch(deleteUSerFailure(error.message));
+      }
+}
+const handleSignOut = async () => {
+  try {
+    dispatch(signOutUSerSuccess());
+    const res = await fetch("http://localhost:3000/api/auth/signout", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+    const data = await res.json(); 
+    if (data.success === false) {
+      dispatch(signOutUSerFailure(data.message));
+      return;
+    }
+
+    dispatch(signOutUSerSuccess(data));
+      }catch (error) {
+        dispatch(signOutUSerFailure(error.message));
       }
 }
   return (
@@ -179,7 +201,7 @@ const handleDelete = async () => {
       </div>
       <div className="flex flex-row justify-between mt-4">
       <button
-              onClick={handleDeleteUSer}
+              onClick={handleDelete}
               disabled={loading}
               className="bg-gray-500 text-white px-4 py-2 rounded-lg"
             >
