@@ -9,7 +9,7 @@ import Header from "./components/Header.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import Signup from "./pages/SignUp.jsx";
 import React from "react";
-import Footer from "./components/footer.jsx";
+import Footer from "./components/Footer.jsx";
 import Scheduling from "./pages/Scheduling.jsx";
 import Payment from "./pages/Payment.jsx";
 import PrivateRouter from "./components/PrivateRouter.jsx";
