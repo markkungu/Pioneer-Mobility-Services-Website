@@ -4,6 +4,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { LOCAL_HOST } from '../host.js';
 
 const stripePromise = loadStripe("pk_test_51QyDOpFkFc9MmOZc610AzrUEzDBuRZX41PCubdYY7vBiZVAlSaAYj9CQ9wkyK31MneUKyFtRL0XGsfuF09wrs5bP00fiqQQjaz");
 
@@ -63,7 +64,7 @@ const PaymentForm = ({ bookingData, amount, clientSecret }) => {
         paymentIntentId: paymentIntent.id,
       };
 
-      fetch("http://localhost:3000/api/user/saveBooking", {
+      fetch(`${LOCAL_HOST}/api/user/saveBooking`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json',
           Authorization: token, },
@@ -107,13 +108,15 @@ const Payment = () => {
   const data = location.state;
   const [clientSecret, setClientSecret] = useState(null);
   const amount = Math.round(data?.total_price * 100);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     if (!data) return;
 
-    fetch("http://localhost:3000/api/user/booking", {
+    fetch(`${LOCAL_HOST}/api/user/booking`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json',
+          Authorization: token, },
       body: JSON.stringify({ bookingData: data }),
     })
       .then((res) => res.json())

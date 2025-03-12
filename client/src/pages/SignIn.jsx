@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice.js';
+import { LOCAL_HOST } from '../host.js';
 
 export default function Signin() {
   const [formData, setFormData] = useState({})
@@ -17,7 +18,7 @@ export default function Signin() {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res=  await fetch("http://localhost:3000/api/auth/signin",{
+      const res=  await fetch(`${LOCAL_HOST}/api/auth/signin`,{
         method:"POST",
         headers: {
           'Content-Type': 'application/json'

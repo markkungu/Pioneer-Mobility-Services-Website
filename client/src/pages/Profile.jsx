@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure,  signOutUserSuccess, signOutUserFailure} from "../redux/user/userSlice.js";
+import { LOCAL_HOST } from '../host.js';
 const Profile = () => {
   const { currentUser, loading, error } = useSelector((state) => state.user);
 
@@ -27,7 +28,7 @@ const Profile = () => {
   
       // Store response in a variable
       const res = await fetch(
-        `http://localhost:3000/api/user/updateprofile?id=${currentUser?._id}`,
+        `${LOCAL_HOST}/api/user/updateprofile?id=${currentUser?._id}`,
         {
           method: "PUT", // Check if your backend expects "PUT" instead
           headers: {
@@ -60,7 +61,7 @@ const handleDelete = async () => {
     console.log(currentUser._id)
     // Store response in a variable
     const res = await fetch(
-      `http://localhost:3000/api/user/deleteprofile?id=${currentUser?._id}`,
+      `${LOCAL_HOST}/api/user/deleteprofile?id=${currentUser?._id}`,
       {
         method: "DELETE", // Check if your backend expects "PUT" instead
         headers: {
@@ -85,7 +86,7 @@ const handleDelete = async () => {
 const handleSignOut = async () => {
   try {
     dispatch(signOutUserSuccess());
-    const res = await fetch("http://localhost:3000/api/auth/signout", {
+    const res = await fetch(`${LOCAL_HOST}/api/auth/signout`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { LOCAL_HOST } from '../host.js';
 
 export default function Booking() {
   const [bookings, setBookings] = useState([]);
@@ -12,7 +13,7 @@ export default function Booking() {
       console.log(token)
       try {
         const response = await fetch(
-          `http://localhost:3000/api/user/getbookings?id=${currentUser?._id}`,
+          `${LOCAL_HOST}/api/user/getbookings?id=${currentUser?._id}`,
           {
           method: "GET",
         headers: {
@@ -38,7 +39,7 @@ export default function Booking() {
   const handleDelete = async (bookingId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/user/deletebooking?id=${bookingId}`,
+        `${LOCAL_HOST}/api/user/deletebooking?id=${bookingId}`,
         {
           method: "DELETE",
         }

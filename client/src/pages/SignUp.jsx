@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
+import { LOCAL_HOST } from '../host.js';
 
 export default function Signup() {
   const [formData, setFormData] = useState({})
@@ -14,7 +15,7 @@ export default function Signup() {
     e.preventDefault();
     try {
       setLoading(true);
-      const res=  await fetch("http://localhost:3000/api/auth/signup",{
+      const res=  await fetch(`${LOCAL_HOST}/api/auth/signup`,{
         method:"POST",
         headers: {
           'Content-Type': 'application/json'

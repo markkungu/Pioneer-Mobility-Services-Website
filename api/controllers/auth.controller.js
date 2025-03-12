@@ -34,9 +34,6 @@ export const signIn = async (req, res, next) => {
 
         console.log("User from DB:", user); // Debugging step
 
-        if (!user.password) {
-            return next(errorHandler(400, "User has no password"));
-        }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {

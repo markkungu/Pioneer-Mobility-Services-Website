@@ -1,0 +1,1 @@
+export const LOCAL_HOST= 'https://pioneer-mobility-services-website.onrender.com';
