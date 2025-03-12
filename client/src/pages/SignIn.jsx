@@ -31,8 +31,9 @@ export default function Signin() {
         dispatch(signInFailure(data.message));
         return;
       }
-      dispatch(signInSuccess(data));
-      Navigate("/home")
+      dispatch(signInSuccess(data.user));
+      localStorage.setItem("token", data.token);
+      Navigate("/")
     } catch (error) {
       dispatch(signInFailure(error.message));
     }
@@ -53,7 +54,7 @@ export default function Signin() {
             <p>
                 don't have an account? 
                 <Link to="/signup">
-                <span className="text-[#128178] cursor-pointer">Sign In</span>
+                <span className="text-[#128178] cursor-pointer"> Sign Up</span>
                 </Link>
             </p>
         </div>

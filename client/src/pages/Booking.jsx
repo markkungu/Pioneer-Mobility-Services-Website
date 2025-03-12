@@ -3,14 +3,24 @@ import { useSelector } from "react-redux";
 
 export default function Booking() {
   const [bookings, setBookings] = useState([]);
-  const { currentUser } = useSelector((state) => state.user);
-
+  const {currentUser} = useSelector((state) => state.user);
+  const token = localStorage.getItem("token");
+  console.log("User: ", currentUser)
   // Fetch user bookings
   useEffect(() => {
     const fetchBookings = async () => {
+      console.log(token)
       try {
         const response = await fetch(
-          `http://localhost:3000/api/user/getbookings?id=${currentUser?._id}`
+          `http://localhost:3000/api/user/getbookings?id=${currentUser?._id}`,
+          {
+          method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        credentials: "include"
+      }
         );
         const data = await response.json();
         setBookings(data);
@@ -49,11 +59,11 @@ export default function Booking() {
 
   return (
     <div>
-      <h2 className="text-2xl text-center text-slate-800 border-b border-black pb-2">
-        Active Bookings
+      <h2 className="text-2xl  text-slate-800 border-b border-black m-2 pb-2">
+        Active 
       </h2>
 
-      <div className="grid grid-cols-1 gap-6 p-4">
+      <div className="grid grid-cols-1 gap-6 m-4">
         {bookings.length > 0 ? (
           bookings.map((booking) => (
             <div
@@ -65,6 +75,9 @@ export default function Booking() {
               </p>
               <p className="text-lg font-semibold text-gray-800">
                 Origin: <span className="font-normal">{booking.origin}</span>
+              </p>
+              <p className="text-lg font-semibold text-gray-800">
+                Time: <span className="font-normal">{booking.time}</span>
               </p>
               <p className="text-lg font-semibold text-gray-800">
                 Total Price: <span className="font-normal">${booking.total_price}</span>

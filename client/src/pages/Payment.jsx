@@ -65,7 +65,8 @@ const PaymentForm = ({ bookingData, amount, clientSecret }) => {
 
       fetch("http://localhost:3000/api/user/saveBooking", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 'Content-Type': 'application/json',
+          Authorization: token, },
         body: JSON.stringify({ bookingData: finalBookingData ,paymentIntentId: paymentIntent.id}),
       })
         .then((res) => res.json())

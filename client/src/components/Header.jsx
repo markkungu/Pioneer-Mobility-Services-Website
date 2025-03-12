@@ -1,52 +1,64 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import logo from "../assets/LOGO PNG/header.png";
-import react from "react";
 import { useSelector } from "react-redux";
-
+import logo from "../assets/LOGO PNG/header.png";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const {currentUser} = useSelector((state) => state.user);
-  console.log(currentUser);
+  const { currentUser } = useSelector((state) => state.user);
+
+  console.log("Current User:", currentUser); // Debugging
 
   return (
     <header className="bg-gradient-to-r from-[#128178] to-[#0B3D5A] shadow-md w-full top-0 left-0 z-50">
       <div className="container mx-auto flex justify-between items-center p-2 text-white">
-      <div>
+        <div>
           <Link to="/">
             <img src={logo} alt="Logo" className="h-28 w-auto" />
           </Link>
         </div>
 
-        {/* Desktop Navigation !!!!! change name !!!! */}
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-6">
-          {[
-            "Home",
-            "About",
-            "Services",
-            "bookings",
-            "Contact",
-            "Profile",
-          ].map((item) => (
-            <Link
-              key={item}
-              to={`/${item.toLowerCase()}`}
-              className=" hover:text-[#0B3D5A]"
-            >
-              {item}
-            </Link>
-          ))}
+          {["Home", "About", "Services", "Bookings", "Contact", "Profile"].map(
+            (item) => {
+              if(item =="Home"){
+                return(
+                <Link
+                key={item}
+                to={`/`}
+                className="hover:text-[#0B3D5A]"
+              >
+                {item}
+              </Link>)
+              } else{ return(
+              <Link
+                key={item}
+                to={`/${item.toLowerCase()}`}
+                className="hover:text-[#0B3D5A]"
+              >
+                {item}
+              </Link>)}
+            }
+          )}
         </nav>
 
-        {/* CTA Button */}
+        {/* Show "Book a Ride" if logged in, otherwise "Sign In" */}
         <div className="hidden md:block">
-          <Link to={"/services"}>
-          <button className="bg-[#128178] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#0B3D5A] font-semibold ">
-            Book a Ride
-          </button>
-          </Link>
+          {currentUser ? (
+            <Link to="/services">
+              <button className="bg-[#128178] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#0B3D5A] font-semibold">
+                Book a Ride
+              </button>
+            </Link>
+          ) : (
+            <Link to="/signin">
+              <button className="bg-[#128178] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#0B3D5A] font-semibold">
+                Sign In
+              </button>
+            </Link>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -58,36 +70,42 @@ const Header = () => {
       {/* Mobile Navigation */}
       {isOpen && (
         <nav className="md:hidden bg-white shadow-md p-4 absolute top-16 left-0 w-full flex flex-col space-y-4">
-          {[
-            "Home",
-            "About",
-            "Services",
-            "Scheduling",
-            "Blog",
-            "Contact",
-          ].map((item) => (
-            <Link
-              key={item}
-              to={`/${item.toLowerCase()}`}
-              className="text-[#128178] hover:text-[#0B3D5A]"
-              onClick={() => setIsOpen(false)}
-            >
-              {item}
+          {["Home", "About", "Services", "Bookings", "Contact", "Profile"].map(
+            (item) => {
+              if(item =="Home"){
+                return(
+                <Link
+                key={item}
+                to={`/`}
+                className="hover:text-[#0B3D5A]"
+              >
+                {item}
+              </Link>)
+              } else{ return(
+              <Link
+                key={item}
+                to={`/${item.toLowerCase()}`}
+                className="hover:text-[#0B3D5A]"
+              >
+                {item}
+              </Link>)}
+            }
+          )}
+
+          {/* Show "Book a Ride" if logged in, otherwise "Sign In" */}
+          {currentUser ? (
+            <Link to="/services">
+              <button className="bg-[#128178] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#0B3D5A] font-semibold">
+                Book a Ride
+              </button>
             </Link>
-          ))}
-           {currentUser ? (
-    <Link to="/services">
-      <button className="bg-[#128178] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#0B3D5A] font-semibold">
-        Book a Ride
-      </button>
-    </Link>
-  ) : (
-    <Link to="/signin">
-      <button className="bg-[#0B3D5A] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#128178] font-semibold">
-        Sign Up
-      </button>
-    </Link>
-  )}
+          ) : (
+            <Link to="/signin">
+              <button className="bg-[#128178] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#0B3D5A] font-semibold">
+                Sign In
+              </button>
+            </Link>
+          )}
         </nav>
       )}
     </header>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUSerStart, updateUSerSuccess, updateUSerFailure, deleteUSerStart, deleteUSerSuccess, deleteUSerFailure,  signOutUSerSuccess, signOutUSerFailure} from "../redux/user/userSlice.js";
+import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure,  signOutUserSuccess, signOutUserFailure} from "../redux/user/userSlice.js";
 const Profile = () => {
   const { currentUser, loading, error } = useSelector((state) => state.user);
 
@@ -13,6 +13,7 @@ const Profile = () => {
     password: "",
   });
    const dispatch = useDispatch();
+   const token = localStorage.getItem("token");
   // Handle input changes
   const handleChange = (e) => {
     setUpdatedUser({ ...updatedUser, [e.target.name]: e.target.value });
@@ -22,7 +23,7 @@ const Profile = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      dispatch(updateUSerStart());
+      dispatch(updateUserStart());
   
       // Store response in a variable
       const res = await fetch(
@@ -30,7 +31,8 @@ const Profile = () => {
         {
           method: "PUT", // Check if your backend expects "PUT" instead
           headers: {
-            "Content-Type": "application/json",
+           'Content-Type': 'application/json',
+          Authorization: token,
           },
           body: JSON.stringify(updatedUser),
           credentials: "include",
@@ -39,21 +41,21 @@ const Profile = () => {
   
       const data = await res.json(); 
       if (data.success === false) {
-        dispatch(updateUSerFailure(data.message));
+        dispatch(updateUserFailure(data.message));
         return;
       }
   
-      dispatch(updateUSerSuccess(data));
+      dispatch(updateUserSuccess(data));
       setIsEditing(false);
       alert("Profile updated successfully!");
     } catch (error) {
-      dispatch(updateUSerFailure(error.message));
+      dispatch(updateUserFailure(error.message));
     }
   };
    
 const handleDelete = async () => {
   try {
-    dispatch(deleteUSerStart());
+    dispatch(deleteUserStart());
 
     console.log(currentUser._id)
     // Store response in a variable
@@ -62,7 +64,8 @@ const handleDelete = async () => {
       {
         method: "DELETE", // Check if your backend expects "PUT" instead
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
+          Authorization: token,
         },
         credentials: "include",
       }
@@ -70,34 +73,35 @@ const handleDelete = async () => {
 
     const data = await res.json(); 
     if (data.success === false) {
-      dispatch(deleteUSerFailure(data.message));
+      dispatch(deleteUserFailure(data.message));
       return;
     }
 
-    dispatch(deleteUSerSuccess(data));
+    dispatch(deleteUserSuccess(data));
       }catch (error) {
-        dispatch(deleteUSerFailure(error.message));
+        dispatch(deleteUserFailure(error.message));
       }
 }
 const handleSignOut = async () => {
   try {
-    dispatch(signOutUSerSuccess());
+    dispatch(signOutUserSuccess());
     const res = await fetch("http://localhost:3000/api/auth/signout", {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
+          Authorization: token,
       },
       credentials: "include",
     });
     const data = await res.json(); 
     if (data.success === false) {
-      dispatch(signOutUSerFailure(data.message));
+      dispatch(signOutUserFailure(data.message));
       return;
     }
 
-    dispatch(signOutUSerSuccess(data));
+    dispatch(signOutUserSuccess(data));
       }catch (error) {
-        dispatch(signOutUSerFailure(error.message));
+        dispatch(signOutUserFailure(error.message));
       }
 }
   return (
@@ -185,7 +189,7 @@ const handleSignOut = async () => {
             <button
               onClick={() => setIsEditing(false)}
               disabled={loading}
-              className="bg-gray-500 text-white px-4 py-2 rounded-lg"
+              className="bg-red-500 text-white px-4 py-2 rounded-lg"
             >
               Cancel
             </button>
@@ -193,7 +197,7 @@ const handleSignOut = async () => {
         ) : (
           <button
             onClick={() => setIsEditing(true)}
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+            className="bg-[#0B3D5A] text-white px-4 py-2 rounded-lg"
           >
             Edit Profile
           </button>
@@ -203,14 +207,14 @@ const handleSignOut = async () => {
       <button
               onClick={handleDelete}
               disabled={loading}
-              className="bg-gray-500 text-white px-4 py-2 rounded-lg"
+              className=" text-[#128178] px-4 py-2 rounded-lg"
             >
               delete account
             </button>
             <button
               onClick={handleSignOut}
               disabled={loading}
-              className="bg-gray-500 text-white px-4 py-2 rounded-lg"
+              className=" text-[#128178] px-4 py-2 rounded-lg"
             >
              sign out
             </button>

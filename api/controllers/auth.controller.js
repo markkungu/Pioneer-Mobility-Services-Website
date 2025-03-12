@@ -26,30 +26,37 @@ export const signIn = async (req, res, next) => {
         if (!email || !password) {
             return next(errorHandler(400, "Email and password are required"));
         }
-        const user = await User.findOne({ email }).select("+password");
 
+        const user = await User.findOne({ email }).select("+password");
         if (!user) {
             return next(errorHandler(404, "User not found"));
         }
+
         console.log("User from DB:", user); // Debugging step
 
         if (!user.password) {
             return next(errorHandler(400, "User has no password"));
         }
+
         const isPasswordValid = await bcrypt.compare(password, user.password);
-        const {password: pass, ...rest} = user._doc;
-        
         if (!isPasswordValid) {
             return next(errorHandler(401, "Invalid credentials"));
         }
 
-        res.cookie("token", generateTokens(user._id.toString()), {  httpOnly: true, secure: false,  // Set to `true` in production with HTTPS
-            sameSite: "lax", }).json(rest);
+        const token = generateTokens(user._id.toString()); // Generate JWT
+        const { password: pass, ...rest } = user._doc; // Remove password from response
+
+        res.status(200).json({
+            success: true,
+            user: rest,
+            token: `Bearer ${token}`, // Send token in response body
+        });
 
     } catch (error) {
         next(error);
     }
 };
+
 
 
 // export const getUser = async (req, res,user) => {

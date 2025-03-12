@@ -3,13 +3,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useLoadScript, GoogleMap, Autocomplete, Marker } from "@react-google-maps/api";
 
 const libraries = ["places"];
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
 export default function Booking() {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY ,
     libraries,
   });
-  console.log("API Key:", import.meta.env.VITE_GOOGLE_MAPS_API_KEY);
+  console.log("API Key:", GOOGLE_MAPS_API_KEY);
 
   const location = useLocation();
   const navigate = useNavigate();

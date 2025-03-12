@@ -4,13 +4,13 @@ import protect from '../middleware/auth.middleware.js';
 
 const router = express.Router();
 
-router.post('/booking', booking);
+router.post('/booking', protect, booking);
 router.post('/savebooking', saveBooking);
-router.get('/getbookings', getBookings);//, protect
+router.get('/getbookings', protect, getBookings);
 router.delete('/deletebooking', deleteBooking);
-router.get("/profile", getProfile);
-router.put("/updateprofile", updateProfile);
-router.delete("/delete", deleteProfile);
+router.get("/profile", protect, getProfile);
+router.put("/updateprofile", protect, updateProfile);
+router.delete("/delete", protect, deleteProfile);
 
 
 export default router;
