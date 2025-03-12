@@ -1,8 +1,6 @@
 import React from 'react'
 import HeroSection from '../components/home/Hero.jsx'
 import KeyFeatures from '../components/home/Feature.jsx'
-import Testimonials from '../components/home/Testimonial.jsx'
-import ErrorBoundary from '../utils/error.jsx'
 import CTASection from '../components/home/Cta.jsx'
 
 export default function Home() {
