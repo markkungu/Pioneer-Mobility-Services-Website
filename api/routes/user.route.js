@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/booking', verifyUser, booking);
 router.post('/savebooking', saveBooking);
 router.get('/getbookings', verifyUser, getBookings);
-router.delete('/deletebooking', deleteBooking);
+router.delete('/deletebooking', verifyUser, deleteBooking);
 router.get("/profile", verifyUser, getProfile);
 router.put("/updateprofile", verifyUser, updateProfile);
 router.delete("/delete", verifyUser, deleteProfile);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { LOCAL_HOST } from '../host.js';
 
-export default function Booking() {
+export default function Bookings() {
   const [bookings, setBookings] = useState([]);
   const {currentUser} = useSelector((state) => state.user);
   const token = localStorage.getItem("token");
@@ -11,6 +11,7 @@ export default function Booking() {
   useEffect(() => {
     const fetchBookings = async () => {
       console.log(token)
+      console.log(currentUser?._id)
       try {
         const response = await fetch(
           `${LOCAL_HOST}/api/user/getbookings?id=${currentUser?._id}`,
@@ -29,7 +30,7 @@ export default function Booking() {
         console.error("Error fetching bookings:", error);
       }
     };
-
+      console.log(currentUser)
     if (currentUser?._id) {
       fetchBookings();
     }

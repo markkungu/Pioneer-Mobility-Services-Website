@@ -22,10 +22,12 @@ const PaymentForm = ({ bookingData, amount, clientSecret }) => {
   useEffect(() => {
     if (!bookingData || !bookingData.total_price || !currentUser) return;
 
+    console.log("user in browser", currentUser)
     setUpdatedBookingData({
       ...bookingData,
       userId: currentUser._id,
-      userName: currentUser.name,
+      userName: `${currentUser.fname} ${currentUser.lname}`,
+      email: currentUser.email
     });
   }, [bookingData, currentUser]);
 

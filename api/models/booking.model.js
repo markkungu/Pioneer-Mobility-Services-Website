@@ -10,6 +10,10 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     default: null, // Can be null if user data is unavailable
   },
+  email: {
+    type: String,
+    default: null, // Can be null if user data is unavailable
+  },
   service: {
     id: {
       type: Number,

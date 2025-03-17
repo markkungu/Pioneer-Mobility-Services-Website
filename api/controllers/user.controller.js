@@ -70,7 +70,8 @@ export const saveBooking = async (req, res, next) => {
         // ✅ Save booking details in MongoDB
         const newBooking = new Booking({
             userId: bookingData.userId || null, // Ensure user ID is included
-            userName: bookingData.userName || "Guest",
+            userName: bookingData.userName || null,
+            email: bookingData.email,
             origin: bookingData.origin,
             destination: bookingData.destination,
             distance: bookingData.distance,
@@ -80,7 +81,7 @@ export const saveBooking = async (req, res, next) => {
             time: bookingData.time,
             total_price: bookingData.total_price,
             paymentIntentId: paymentIntent.id, // Store paymentIntentId for reference
-            status: "pending",
+            status: "pending"
         });
 
         await newBooking.save();

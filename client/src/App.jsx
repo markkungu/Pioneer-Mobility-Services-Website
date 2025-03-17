@@ -14,6 +14,10 @@ import Scheduling from "./pages/Scheduling.jsx";
 import Payment from "./pages/Payment.jsx";
 import {PrivateRouter} from "./components/PrivateRouter.jsx";
 import Profile from "./pages/Profile.jsx";
+import AdminBookings from "./pages/AdminBookings.jsx";
+import AdminUsers from "./pages/AdminUsers.jsx";
+import AdminSignIn from "./pages/AdminSignIn.jsx";
+import AdminSignUp from "./pages/AdminSignUp.jsx";
 
 export default function App() {
   return (
@@ -38,6 +42,10 @@ export default function App() {
               <Route path="/bookings" element={<Booking />} />
               <Route path="/profile" element={<Profile />} />
             </Route>
+            <Route path="/adminsignup" element={<AdminSignUp />} />
+            <Route path="/adminsignin" element={<AdminSignIn />} />
+            <Route path="/adminusers" element={<AdminUsers />} />
+            <Route path="/adminbookings" element={<AdminBookings />} />
           </Routes>
         </main>
 

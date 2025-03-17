@@ -7,7 +7,7 @@ const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
 export default function Booking() {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: "AIzaSyBSvhLpT9Mw-_39lx-7houaYb-8nzyfcQA" ,
     libraries,
   });
   console.log("API Key:", GOOGLE_MAPS_API_KEY);
