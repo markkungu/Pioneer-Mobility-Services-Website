@@ -99,8 +99,13 @@ const handleSignOut = async () => {
       dispatch(signOutUserFailure(data.message));
       return;
     }
+    localStorage.removeItem("token"); // Remove token
+    localStorage.removeItem("persist:root"); // Remove Redux persisted state
 
-    dispatch(signOutUserSuccess(data));
+    // ✅ Clear sessionStorage (optional, but useful for session-based storage)
+    sessionStorage.clear();
+    
+    dispatch(signOutUserSuccess());
       }catch (error) {
         dispatch(signOutUserFailure(error.message));
       }

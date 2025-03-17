@@ -69,10 +69,10 @@ export const signOut = async (req, res) => {
     // check later if the stored details in the browser are deleted after signing out !!!!!!!
     try{
         res.clearCookie('token');
-        res.status(200).json({ message: "User signed out successfully" });
+        res.status(200).json({ message: "User signed out successfully" ,success: true});
     } catch (error) {
         console.error("Error signing out user:", error);
-        res.status(500).json({ message: "Server error" });
+        res.status(500).json({ message: "Server error" ,success: false});
     }
     }
 
