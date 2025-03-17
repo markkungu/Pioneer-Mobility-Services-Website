@@ -1,1 +1,1 @@
-export const LOCAL_HOST= 'https://pioneer-mobility-services-website.onrender.com';
+export const LOCAL_HOST='http://localhost:3000' ; //'https://pioneer-mobility-services-website.onrender.com'

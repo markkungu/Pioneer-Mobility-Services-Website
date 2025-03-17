@@ -51,8 +51,12 @@ const bookingSchema = new mongoose.Schema({
   total_price: {
     type: Number,
     required: true,
-  },
+  }, 
   paymentIntentId: {
+    type: String,
+    required: true,
+  },
+  status: {
     type: String,
     required: true,
   }

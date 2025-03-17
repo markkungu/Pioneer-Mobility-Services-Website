@@ -12,7 +12,7 @@ import React from "react";
 import Footer from "./components/Footer.jsx";
 import Scheduling from "./pages/Scheduling.jsx";
 import Payment from "./pages/Payment.jsx";
-import PrivateRouter from "./components/PrivateRouter.jsx";
+import {PrivateRouter} from "./components/PrivateRouter.jsx";
 import Profile from "./pages/Profile.jsx";
 
 export default function App() {

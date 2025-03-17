@@ -5,3 +5,9 @@ export const generateTokens= (_id) =>{
         expiresIn: '30d',
     }) // uses _id to make token for verification
 }
+ // not used !!
+export const generateAdminToken = (email, isAdmin) => {
+    return jwt.sign({ email, isAdmin }, process.env.JWT_SECRET, {
+        expiresIn: "30d",
+    });
+};

@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import userRoute from './routes/user.route.js';
 import authRoute from './routes/auth.route.js';
 import contactRoute from './routes/contact.route.js';
+import adminRoute from './routes/admin.route.js';
 import cors from "cors"; // Import CORS
 
 
@@ -29,6 +30,7 @@ app.listen(3000, () => {
 app.use('/api/user', userRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/contact', contactRoute);
+app.use('/api/admin', adminRoute);
 
 app.use((err, req, res, next) => {
     const statusCode = err.statuscode || 500;

@@ -1,16 +1,16 @@
 import express from 'express';
 import {booking, saveBooking, getBookings, getProfile, updateProfile,deleteBooking, deleteProfile} from '../controllers/user.controller.js';
-import protect from '../middleware/auth.middleware.js';
+import {verifyUser} from '../middleware/auth.middleware.js';
 
 const router = express.Router();
 
-router.post('/booking', protect, booking);
+router.post('/booking', verifyUser, booking);
 router.post('/savebooking', saveBooking);
-router.get('/getbookings', protect, getBookings);
+router.get('/getbookings', verifyUser, getBookings);
 router.delete('/deletebooking', deleteBooking);
-router.get("/profile", protect, getProfile);
-router.put("/updateprofile", protect, updateProfile);
-router.delete("/delete", protect, deleteProfile);
+router.get("/profile", verifyUser, getProfile);
+router.put("/updateprofile", verifyUser, updateProfile);
+router.delete("/delete", verifyUser, deleteProfile);
 
 
 export default router;

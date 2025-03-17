@@ -80,6 +80,7 @@ export const saveBooking = async (req, res, next) => {
             time: bookingData.time,
             total_price: bookingData.total_price,
             paymentIntentId: paymentIntent.id, // Store paymentIntentId for reference
+            status: "pending",
         });
 
         await newBooking.save();
