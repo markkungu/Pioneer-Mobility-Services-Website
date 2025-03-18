@@ -55,7 +55,7 @@ export default function AdminSignup() {
         <div className=" mt-5 flex gap-2">
             <p>
                 Already have an account? 
-                <Link to="/signIn">
+                <Link to="/adminsignIn">
                 <span className="text-[#128178] cursor-pointer">Sign In</span>
                 </Link>
             </p>

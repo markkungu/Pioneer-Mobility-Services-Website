@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { LOCAL_HOST } from "../host.js";
+import { useDispatch } from "react-redux";
+import{ signOutUserStart,  signOutUserSuccess, signOutUserFailure} from "../redux/user/userSlice.js";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState([]);
+  const dispatch = useDispatch();
+
   const token = localStorage.getItem("token");
+
   // Fetch users from the API
   useEffect(() => {
     const fetchUsers = async () => {
@@ -26,6 +31,34 @@ export default function AdminUsers() {
     fetchUsers();
   }, []);
 
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch(`${LOCAL_HOST}/api/auth/adminsignout`, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+            Authorization: token,
+        },
+        credentials: "include",
+      });
+      const data = await res.json(); 
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message));
+        return;
+      }
+      localStorage.removeItem("token"); // Remove token
+      localStorage.removeItem("persist:root"); // Remove Redux persisted state
+  
+      // ✅ Clear sessionStorage (optional, but useful for session-based storage)
+      sessionStorage.clear();
+      
+      dispatch(signOutUserSuccess());
+      
+        }catch (error) {
+          dispatch(signOutUserFailure(error.message));
+        }
+  }
   return (
     <div className="p-6">
       <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">User List</h2>
@@ -59,6 +92,12 @@ export default function AdminUsers() {
             )}
           </tbody>
         </table>
+        <button
+              onClick={handleSignOut}
+              className=" text-[#128178] px-4 py-2 rounded-lg"
+            >
+             sign out
+            </button>
       </div>
     </div>
   );

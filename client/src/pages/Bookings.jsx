@@ -10,8 +10,8 @@ export default function Bookings() {
   // Fetch user bookings
   useEffect(() => {
     const fetchBookings = async () => {
-      console.log(token)
-      console.log(currentUser?._id)
+      //console.log(token)
+     // console.log(currentUser?._id)
       try {
         const response = await fetch(
           `${LOCAL_HOST}/api/user/getbookings?id=${currentUser?._id}`,
@@ -25,6 +25,7 @@ export default function Bookings() {
       }
         );
         const data = await response.json();
+        console.log(data)
         setBookings(data);
       } catch (error) {
         console.error("Error fetching bookings:", error);

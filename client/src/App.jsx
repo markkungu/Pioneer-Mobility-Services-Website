@@ -3,7 +3,7 @@ import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
 import Blog from "./pages/Blog.jsx";
 import Service from "./pages/Service.jsx";
-import Booking from "./pages/Booking.jsx";
+import Booking from "./pages/Bookings.jsx";
 import Contact from "./pages/Contact.jsx";
 import Header from "./components/Header.jsx";
 import SignIn from "./pages/SignIn.jsx";
@@ -12,7 +12,7 @@ import React from "react";
 import Footer from "./components/Footer.jsx";
 import Scheduling from "./pages/Scheduling.jsx";
 import Payment from "./pages/Payment.jsx";
-import {PrivateRouter} from "./components/PrivateRouter.jsx";
+import {PrivateRouter, AdminRouter} from "./components/PrivateRouter.jsx";
 import Profile from "./pages/Profile.jsx";
 import AdminBookings from "./pages/AdminBookings.jsx";
 import AdminUsers from "./pages/AdminUsers.jsx";
@@ -36,16 +36,21 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<Signup />} />
+
             <Route element={<PrivateRouter />}>
               <Route path="/scheduling" element={<Scheduling />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/bookings" element={<Booking />} />
               <Route path="/profile" element={<Profile />} />
             </Route>
-            <Route path="/adminsignup" element={<AdminSignUp />} />
-            <Route path="/adminsignin" element={<AdminSignIn />} />
-            <Route path="/adminusers" element={<AdminUsers />} />
-            <Route path="/adminbookings" element={<AdminBookings />} />
+
+              <Route path="/adminsignup" element={<AdminSignUp />} />
+              <Route path="/adminsignin" element={<AdminSignIn />} />
+              
+            <Route element={<AdminRouter />}>
+              <Route path="/adminusers" element={<AdminUsers />} />
+              <Route path="/adminbookings" element={<AdminBookings />} />
+            </Route>
           </Routes>
         </main>
 

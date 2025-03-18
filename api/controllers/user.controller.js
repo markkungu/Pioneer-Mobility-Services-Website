@@ -117,8 +117,9 @@ export const getBookings = async (req, res, next) => {
     
           // Find all bookings where `userId` matches the given ID
           const bookings = await Booking.find({ userId: req.query.id });
-      console.log(bookings);
-          if (!bookings || bookings.length === 0) {
+     // console.log(bookings);
+         
+     if (!bookings || bookings.length === 0) {
             return res.status(404).json({ message: "No bookings found for this user" });
           }
       

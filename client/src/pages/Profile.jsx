@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure,  signOutUserSuccess, signOutUserFailure} from "../redux/user/userSlice.js";
+import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserStart, deleteUserSuccess, deleteUserFailure, signOutUserStart,  signOutUserSuccess, signOutUserFailure} from "../redux/user/userSlice.js";
 import { LOCAL_HOST } from '../host.js';
 const Profile = () => {
   const { currentUser, loading, error } = useSelector((state) => state.user);
@@ -15,7 +15,7 @@ const Profile = () => {
   });
    const dispatch = useDispatch();
    const token = localStorage.getItem("token");
-  // Handle input changes
+  // Handle input changes  
   const handleChange = (e) => {
     setUpdatedUser({ ...updatedUser, [e.target.name]: e.target.value });
   };
@@ -85,7 +85,7 @@ const handleDelete = async () => {
 }
 const handleSignOut = async () => {
   try {
-    dispatch(signOutUserSuccess());
+    dispatch(signOutUserStart());
     const res = await fetch(`${LOCAL_HOST}/api/auth/signout`, {
       method: "GET",
       headers: {

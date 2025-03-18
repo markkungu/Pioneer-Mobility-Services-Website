@@ -82,9 +82,9 @@ export default function Bookings() {
               bookings.map((booking) => (
                 <tr key={booking._id} className="text-center">
                   <td className="border p-2">
-                    {booking.user?.userName} 
+                    {booking.userName} 
                   </td>
-                  <td className="border p-2">{booking.user?.email}</td>
+                  <td className="border p-2">{booking.email}</td>
                   <td className="border p-2">{booking.service?.name}</td>
                   <td className="border p-2">{booking.origin}</td>
                   <td className="border p-2">{booking.destination}</td>
