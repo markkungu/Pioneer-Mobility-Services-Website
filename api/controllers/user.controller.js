@@ -50,26 +50,32 @@ export const booking = async (req, res, next) => {
 
 export const saveBooking = async (req, res, next) => {
     try {
-        const { bookingData, paymentIntentId } = req.body;
+        const { bookingData } = req.body;
+
+        console.log("📩 Received bookingData:", req.body); // Debug request data
 
         // ✅ Ensure required data is provided
-        if (!bookingData || !paymentIntentId) {
-            return next(errorHandler(400, "Missing booking data or paymentIntentId"));
+        if (!bookingData || !bookingData.paymentIntentId) {
+            return next(errorHandler(400, "❌ Missing booking data or paymentIntentId"));
         }
 
         // ✅ Retrieve PaymentIntent from Stripe for verification
-        const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+        const paymentIntent = await stripe.paymentIntents.retrieve(bookingData.paymentIntentId);
 
         if (!paymentIntent || paymentIntent.status !== "succeeded") {
-            return next(errorHandler(400, "Payment not verified"));
+            return next(errorHandler(400, "❌ Payment verification failed!"));
         }
+        console.log("✅ Payment verified:", paymentIntent);
 
-        // ✅ Ensure `total_price` is stored as a number
+        // ✅ Ensure `total_price` is stored as a valid number
+        if (!bookingData.total_price || isNaN(parseFloat(bookingData.total_price))) {
+            return next(errorHandler(400, "❌ Invalid total price"));
+        }
         bookingData.total_price = parseFloat(bookingData.total_price);
 
         // ✅ Save booking details in MongoDB
         const newBooking = new Booking({
-            userId: bookingData.userId || null, // Ensure user ID is included
+            userId: bookingData.userId || null, 
             userName: bookingData.userName || null,
             email: bookingData.email,
             origin: bookingData.origin,
@@ -80,11 +86,14 @@ export const saveBooking = async (req, res, next) => {
             date: bookingData.date,
             time: bookingData.time,
             total_price: bookingData.total_price,
-            paymentIntentId: paymentIntent.id, // Store paymentIntentId for reference
+            paymentIntentId: bookingData.paymentIntentId, 
             status: "pending"
         });
 
+        console.log("📝 New Booking Object:", newBooking); // Debugging
+
         await newBooking.save();
+        console.log("✅ Booking saved successfully!");
 
         res.status(201).json({
             message: "✅ Booking saved successfully!",
@@ -93,9 +102,10 @@ export const saveBooking = async (req, res, next) => {
 
     } catch (error) {
         console.error("❌ Error saving booking:", error);
-        next(errorHandler(500, "Internal server error"));
+        next(errorHandler(500, error.message || "Internal server error"));
     }
 };
+
 
 
 

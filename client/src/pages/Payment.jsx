@@ -29,6 +29,7 @@ const PaymentForm = ({ bookingData, amount, clientSecret }) => {
       userName: `${currentUser.fname} ${currentUser.lname}`,
       email: currentUser.email
     });
+    console.log("updatedBookingData", updatedBookingData);
   }, [bookingData, currentUser]);
 
   const handleSubmit = async (e) => {
@@ -70,7 +71,7 @@ const PaymentForm = ({ bookingData, amount, clientSecret }) => {
         method: "POST",
         headers: { 'Content-Type': 'application/json',
           Authorization: token, },
-        body: JSON.stringify({ bookingData: finalBookingData ,paymentIntentId: paymentIntent.id}),
+        body: JSON.stringify({ bookingData: finalBookingData }),
       })
         .then((res) => res.json())
         .then((data) => {
