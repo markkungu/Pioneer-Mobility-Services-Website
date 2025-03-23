@@ -1,30 +1,84 @@
-import { FaWheelchair, FaUserTie, FaMapMarkerAlt, FaDollarSign, FaClock } from "react-icons/fa";
+import Vehicles from "../../assets/features/1.jpeg";
+import Drivers from "../../assets/features/2.png";
+import Support from "../../assets/features/3.jpeg";
+import Pay from "../../assets/features/4.jpeg";
+import Tracking from "../../assets/features/5.jpeg";
 
-const features = [
-  { icon: <FaWheelchair size={40} className="text-[#128178]" />, title: "ADA-Compliant Vehicles", desc: "Ensuring accessibility for all passengers." },
-  { icon: <FaUserTie size={40} className="text-[#128178]" />, title: "Professional, Trained Drivers", desc: "Experienced drivers committed to your safety." },
-  { icon: <FaMapMarkerAlt size={40} className="text-[#128178]" />, title: "Real-Time GPS Tracking", desc: "Track your ride for peace of mind." },
-  { icon: <FaDollarSign size={40} className="text-[#128178]" />, title: "Medicaid & Private Pay Accepted", desc: "Flexible payment options for convenience." },
-  { icon: <FaClock size={40} className="text-[#128178]" />, title: "24/7 Scheduling Support", desc: "Book a ride anytime, anywhere." },
-];
+const FeaturesSection = () => {
+  const features = [
+    {
+      title: "ADA-Compliant Vehicles",
+      description:
+        "Our ADA-compliant fleet ensures safe and comfortable travel with wheelchair ramps, secure seating, and spacious interiors, prioritizing accessibility and dignity.",
+      image: Vehicles,
+    },
+    {
+      title: "Professional, Trained Drivers",
+      description:
+        "Our drivers are expertly trained in patient care, safety, and personalized assistance, ensuring smooth and professional rides.",
+      image: Drivers,
+    },
+    {
+      title: "24/7 Scheduling Support",
+      description:
+        "24/7 support is available for scheduling, changes, and urgent transportation needs, ensuring rides are available whenever needed.",
+      image: Support,
+    },
+    {
+      title: "Medicaid & Private Pay Accepted",
+      description:
+        "We offer flexible payment options, including Medicaid and private pay, ensuring accessible transportation for all.",
+      image: Pay,
+    },
+    {
+      title: "Real-Time GPS Tracking",
+      description:
+        "Real-time GPS tracking provides accurate arrival times, reduces wait periods, and enhances safety with instant location updates.",
+      image: Tracking,
+    },
+  ];
 
-const KeyFeatures = () => {
   return (
-    <section className="py-16 bg-gray-100">
-      <div className="container mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#0B3D5A] mb-6">Our Key Features</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {features.map((feature, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center">
-              {feature.icon}
-              <h3 className="text-xl font-semibold text-[#0B3D5A] mt-4">{feature.title}</h3>
-              <p className="text-gray-600 mt-2">{feature.desc}</p>
-            </div>
-          ))}
+    <div className="w-full flex flex-col items-center justify-center py-16 px-6 bg-[#EAFFF5]">
+      {/* Section Header */}
+      <h2 className="text-4xl font-bold text-[#188754] mb-8">Why Choose Us</h2>
+
+      {/* Features Grid with Banner */}
+      <div className="w-full max-w-[1264px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0">
+        
+        {/* Banner Inside Grid */}
+        <div className="w-full h-[420px] bg-[#188754] text-white p-10 flex flex-col justify-center">
+          <h2 className="text-5xl font-bold leading-tight">
+            Travel <br /> With Confidence
+          </h2>
+          <p className="mt-6 text-lg">
+            From ADA-compliant vehicles to 24/7 support, we're dedicated to making your journey stress-free.
+          </p>
         </div>
+
+        {/* Feature Cards */}
+        {features.map((item, index) => (
+          <div
+            key={index}
+            className="w-full bg-white border border-gray-200 rounded-none shadow-md overflow-hidden"
+          >
+            <div className="relative">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-full h-[200px] object-cover"
+              />
+            </div>
+            <div className="p-6">
+              <h3 className="text-2xl text-[#188754] font-semibold">{item.title}</h3>
+              <p className="text-gray-700 text-lg mt-2">{item.description}</p>
+            </div>
+          </div>
+        ))}
+
       </div>
-    </section>
+    </div>
   );
 };
 
-export default KeyFeatures;
+export default FeaturesSection;
