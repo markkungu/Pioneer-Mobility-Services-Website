@@ -25,7 +25,7 @@ const Testimonials = () => {
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#0B3D5A] mb-6">What Our Clients Say</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-[#188754] mb-6">Customer Feedback</h2>
         <Swiper
           modules={[Pagination, Autoplay]}
           spaceBetween={30}
@@ -36,9 +36,9 @@ const Testimonials = () => {
           className="w-full md:w-3/4 lg:w-1/2 mx-auto"
         >
           {testimonials.map((testimonial, index) => (
-            <SwiperSlide key={index} className="bg-gray-100 p-6 rounded-lg shadow-md">
+            <SwiperSlide key={index} className=" p-6 rounded-lg shadow-md">
               <p className="text-lg text-gray-700 italic">"{testimonial.review}"</p>
-              <h3 className="mt-4 text-xl font-semibold text-[#0B3D5A]">{testimonial.name}</h3>
+              <h3 className="mt-4 text-xl font-semibold text-[#188754]">{testimonial.name}</h3>
               <p className="text-gray-600">{testimonial.location}</p>
             </SwiperSlide>
           ))}

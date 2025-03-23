@@ -5,7 +5,7 @@ const CTASection = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full py-12">
       {/* Header Section */}
-      <h1 className="text-[#188754] text-3xl lg:text-4xl font-bold mb-6">
+      <h1 className="text-[#188754] text-3xl lg:text-4xl font-bold mb-6 ">
         Need a Ride?
       </h1>
 

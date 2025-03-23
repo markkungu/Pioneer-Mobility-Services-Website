@@ -2,6 +2,7 @@ import React from 'react'
 import HeroSection from '../components/home/Hero.jsx'
 import KeyFeatures from '../components/home/Feature.jsx'
 import CTASection from '../components/home/Cta.jsx'
+import Testimonials from '../components/home/Testimonial.jsx'
 
 export default function Home() {
   return (
@@ -14,15 +15,11 @@ export default function Home() {
         <div>
           <KeyFeatures />
         </div>
-      {/** <testimonial /> */}
-      {/*
-      
+      {/** <testimonial /> */}    
         <div>
-          <ErrorBoundary>
             <Testimonials />
-          </ErrorBoundary>
         </div>
-      */}
+     
       {/** <CTA  /> */}
         <div>
           <CTASection/>
