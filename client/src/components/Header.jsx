@@ -4,6 +4,15 @@ import { Menu, X } from "lucide-react";
 import { useSelector } from "react-redux";
 import logo from "../assets/LOGO PNG/header.png";
 
+const NAV_LINKS = [
+  { title: "Home", path: "/" },
+  { title: "About", path: "/about" },
+  { title: "Services", path: "/services" },
+  { title: "Bookings", path: "/bookings" },
+  { title: "Contact", path: "/contact" },
+  { title: "Profile", path: "/profile" },
+];
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
@@ -11,8 +20,9 @@ const Header = () => {
   console.log("Current User:", currentUser); // Debugging
 
   return (
-    <header className="bg-gradient-to-r from-[#128178] to-[#0B3D5A] shadow-md w-full top-0 left-0 z-50">
+    <header className="bg-white shadow-md w-full top-0 left-0 z-50">
       <div className="container mx-auto flex justify-between items-center p-2 text-white">
+        {/* Logo */}
         <div>
           <Link to="/">
             <img src={logo} alt="Logo" className="h-28 w-auto" />
@@ -21,27 +31,11 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-6">
-          {["Home", "About", "Services", "Bookings", "Contact", "Profile"].map(
-            (item) => {
-              if(item =="Home"){
-                return(
-                <Link
-                key={item}
-                to={`/`}
-                className="hover:text-[#0B3D5A]"
-              >
-                {item}
-              </Link>)
-              } else{ return(
-              <Link
-                key={item}
-                to={`/${item.toLowerCase()}`}
-                className="hover:text-[#0B3D5A]"
-              >
-                {item}
-              </Link>)}
-            }
-          )}
+          {NAV_LINKS.map(({ title, path }) => (
+            <Link key={title} to={path} className="hover:text-[#0B3D5A] text-black">
+              {title}
+            </Link>
+          ))}
         </nav>
 
         {/* Show "Book a Ride" if logged in, otherwise "Sign In" */}
@@ -70,27 +64,11 @@ const Header = () => {
       {/* Mobile Navigation */}
       {isOpen && (
         <nav className="md:hidden bg-white shadow-md p-4 absolute top-16 left-0 w-full flex flex-col space-y-4">
-          {["Home", "About", "Services", "Bookings", "Contact", "Profile"].map(
-            (item) => {
-              if(item =="Home"){
-                return(
-                <Link
-                key={item}
-                to={`/`}
-                className="hover:text-[#0B3D5A]"
-              >
-                {item}
-              </Link>)
-              } else{ return(
-              <Link
-                key={item}
-                to={`/${item.toLowerCase()}`}
-                className="hover:text-[#0B3D5A]"
-              >
-                {item}
-              </Link>)}
-            }
-          )}
+          {NAV_LINKS.map(({ title, path }) => (
+            <Link key={title} to={path} className="hover:text-[#0B3D5A]">
+              {title}
+            </Link>
+          ))}
 
           {/* Show "Book a Ride" if logged in, otherwise "Sign In" */}
           {currentUser ? (
@@ -108,6 +86,12 @@ const Header = () => {
           )}
         </nav>
       )}
+
+      {/* Help Section (Visible on Medium Screens and Larger) */}
+      <div className="hidden md:block text-right px-6">
+        <p className="text-gray-600 text-lg">GET HELP 24/7</p>
+        <p className="text-[#188754] text-xl font-semibold">206-307-7496</p>
+      </div>
     </header>
   );
 };

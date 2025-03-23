@@ -7,7 +7,7 @@ const HeroSection = () => {
       {/* Left Section - Image */}
       <div className="w-full md:w-1/2 h-full">
         <img
-          className="w-full h-full object-cover rounded-lg"
+          className="w-full h-full object-cover "
           alt="driver helping client"
           src={heroImage}
         />
@@ -24,9 +24,11 @@ const HeroSection = () => {
         </p>
 
         <div className="mt-8">
-          <button className="w-[300px] h-[60px] bg-white text-[#188754] font-bold text-xl font-semibold rounded-[15px] shadow-md hover:bg-gray-100 transition-all">
+          <Link to="/signin">    
+          <button className="w-[300px] h-[60px] bg-white text-[#188754] font-bold text-xl  rounded-[15px] shadow-md hover:bg-gray-100 transition-all">
             Click Here to Book a Ride
           </button>
+          </Link>
         </div>
       </div>
     </div>
