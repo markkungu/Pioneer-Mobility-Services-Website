@@ -86,7 +86,7 @@ const Contact = () => {
           {/* Contact Info & Map */}
           <div>
             <h3 className="text-xl font-semibold text-[#0B3D5A] mb-4">Contact Information</h3>
-            <p className="text-gray-700 mb-2"><strong>Phone:</strong> +1 (123) 456-7890</p>
+            <p className="text-gray-700 mb-2"><strong>Phone:</strong> 206-307-7496/206-307-5575</p>
             <p className="text-gray-700 mb-2"><strong>Email:</strong> info@nemtservices.com</p>
             <p className="text-gray-700 mb-4"><strong>Address:</strong> 123 Medical St, Washington, USA</p>
 
