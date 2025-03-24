@@ -3,18 +3,18 @@ import heroImage from "../../assets/hero.png";
 
 const HeroSection = () => {
   return (
-    <div className="relative z-10 flex flex-col md:flex-row items-center justify-center mx-4  bg-[#188754] text-white shadow-lg h-[500px]">
+    <div className="relative z-10 flex flex-col md:flex-row items-center justify-center mx-4 bg-[#188754] text-white shadow-lg h-[500px] rounded-lg">
       {/* Left Section - Image */}
       <div className="w-full md:w-1/2 h-full">
         <img
-          className="w-full h-full object-cover "
+          className="w-full h-full object-cover rounded-l-lg"
           alt="driver helping client"
           src={heroImage}
         />
       </div>
 
       {/* Right Section - Content */}
-      <div className="w-full md:w-1/2 p-6 flex flex-col justify-center">
+      <div className="w-full md:w-1/2 p-6 flex flex-col justify-center rounded-lg">
         <p className="text-white text-4xl font-bold leading-tight">
           Reliable & Safe Non-Emergency Medical Transportation in Washington State
         </p>
@@ -25,9 +25,9 @@ const HeroSection = () => {
 
         <div className="mt-8">
           <Link to="/signin">    
-          <button className="w-[300px] h-[60px] bg-white text-[#188754] font-bold text-xl  rounded-[15px] shadow-md hover:bg-gray-100 transition-all">
-            Click Here to Book a Ride
-          </button>
+            <button className="w-[300px] h-[60px] bg-white text-[#188754] font-bold text-xl rounded-lg shadow-md hover:bg-gray-100 transition-all">
+              Click Here to Book a Ride
+            </button>
           </Link>
         </div>
       </div>

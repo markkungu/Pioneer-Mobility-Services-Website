@@ -69,9 +69,9 @@ const Services = () => {
                 <h3 className="text-2xl font-semibold text-[#0B3D5A]">
                   {service.title}
                 </h3>
-                <p className="text-gray-600 mt-2">{service.description}</p>
+                
                 <button
-                  onClick={() => handleSelectService(service)} // Pass selected service
+                  
                   className="mt-4 bg-[#0B3D5A] text-white px-4 py-2 rounded-lg hover:bg-[#128178] transition"
                 >
                   Schedule a Ride
@@ -86,3 +86,5 @@ const Services = () => {
 };
 
 export default Services;
+// onClick={() => handleSelectService(service)} // Pass selected service button
+// <p className="text-gray-600 mt-2">{service.description}</p>
