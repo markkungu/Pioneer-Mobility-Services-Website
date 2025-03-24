@@ -37,7 +37,7 @@ const Header = () => {
         <nav className="hidden md:flex space-x-6">
           {NAV_LINKS.map(({ title, path, subtitle }) => (
             <div key={title} className="flex flex-col items-start">
-              <Link to={path} className="hover:text-[#0B3D5A] text-black font-semibold">
+              <Link to={path} className="hover:text-[#0B3D5A] text-lg text-black font-bold">
                 {title}
               </Link>
               <span className="text-sm text-gray-500">{subtitle}</span>

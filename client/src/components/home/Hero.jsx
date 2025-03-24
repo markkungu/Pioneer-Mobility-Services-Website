@@ -24,7 +24,7 @@ const HeroSection = () => {
         </p>
 
         <div className="mt-8">
-          <Link to="/signin">    
+          <Link to="/services">   
             <button className="w-[300px] h-[60px] bg-white text-[#188754] font-bold text-xl rounded-lg shadow-md hover:bg-gray-100 transition-all">
               Click Here to Book a Ride
             </button>

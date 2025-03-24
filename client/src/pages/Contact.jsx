@@ -41,7 +41,7 @@ const Contact = () => {
   };
 
   return (
-    <section className="container py-16 px-6 mx-auto">
+    <section className="container py-12 px-6 mx-auto">
       <div className="w-full flex flex-col md:flex-row items-stretch">
         {/* Left Section (Text) */}
         <div className="w-full lg:w-1/2 flex items-center justify-center bg-[#188754] p-6 

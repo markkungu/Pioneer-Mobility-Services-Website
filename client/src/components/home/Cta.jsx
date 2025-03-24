@@ -1,5 +1,6 @@
 import { MapPin } from "lucide-react";
 import ctaImage from "../../assets/cta.png"; // Importing the image
+import { Link } from "react-router-dom";
 
 const CTASection = () => {
   return (
@@ -57,9 +58,11 @@ const CTASection = () => {
             <p className="text-[#188754] font-bold text-xl lg:text-2xl mt-4">
               Call: 206-307-7496 | 206-307-5575
             </p>
+            <Link to="/services">
             <button className="w-full bg-[#188754] text-white py-3 mt-6 text-lg rounded-lg hover:bg-[#146c43] transition">
               Click Here to Book a Ride
             </button>
+            </Link>
           </div>
         </div>
       </section>
