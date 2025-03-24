@@ -49,13 +49,13 @@ const Header = () => {
         <div className="hidden md:flex items-center space-x-6">
           {currentUser ? (
             <Link to="/services">
-              <button className="bg-[#188754] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#0B3D5A] font-semibold">
+              <button className="bg-[#188754] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#128178] font-semibold">
                 Book a Ride
               </button>
             </Link>
           ) : (
             <Link to="/signin">
-              <button className="bg-[#188754] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#0B3D5A] font-semibold">
+              <button className="bg-[#188754] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#128178] font-semibold">
                 Sign In
               </button>
             </Link>
@@ -93,13 +93,13 @@ const Header = () => {
           {/* Show "Book a Ride" if logged in, otherwise "Sign In" */}
           {currentUser ? (
             <Link to="/services" onClick={handleNavClick}>
-              <button className="bg-[#188754] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#0B3D5A] font-semibold">
+              <button className="bg-[#188754] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#128178] font-semibold">
                 Book a Ride
               </button>
             </Link>
           ) : (
             <Link to="/signin" onClick={handleNavClick}>
-              <button className="bg-[#188754] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#0B3D5A] font-semibold">
+              <button className="bg-[#188754] text-white px-4 py-2 rounded-lg shadow-md hover:bg-[#128178] font-semibold">
                 Sign In
               </button>
             </Link>
