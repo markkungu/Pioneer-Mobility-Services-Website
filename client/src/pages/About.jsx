@@ -1,54 +1,135 @@
-const AboutUs = () => {
+export default function AboutUs() {
   return (
-    <section className="bg-gray-100 py-16 px-6">
-      <div className="container mx-auto max-w-5xl text-center">
-        {/* Who We Are */}
-        <h2 className="text-3xl font-bold text-[#0B3D5A] mb-6">Who We Are</h2>
-        <p className="text-lg text-gray-700 mb-8">
-          We are committed to providing safe, reliable, and compassionate
-          non-emergency medical transportation in Washington State. Our mission
-          is to ensure every patient gets to their destination comfortably and on time.
-        </p>
-
-        {/* What Sets Us Apart */}
-        <h2 className="text-3xl font-bold text-[#0B3D5A] mb-6">What Sets Us Apart</h2>
-        <div className="grid md:grid-cols-3 gap-6 text-left">
-          {/* Technology */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold text-[#0B3D5A] mb-3">🚀 Advanced Technology</h3>
-            <p className="text-gray-600">
-              Our fleet is equipped with real-time GPS tracking to ensure
-              efficient and transparent rides.
+    <div className="bg-white flex flex-col justify-center w-full min-h-screen">
+      {/* Main About Us Section */}
+      <div className="flex flex-col items-center w-[1260px] mx-auto">
+        <div className="flex w-full h-[600px]">
+          {/* Left Side - Green Section */}
+          <div className="w-[490px] h-full bg-[#188754] rounded-l-xl flex flex-col items-center justify-center px-8 text-center">
+            <h2 className="text-white text-[70px] font-bold">ABOUT US</h2>
+            <img
+              className="w-[282px] mt-4"
+              alt="Vector"
+              src="https://c.animaapp.com/m8lsvibom5QJ9I/img/vector-1.svg"
+            />
+            <p className="text-white text-3xl leading-10 mt-6">
+              Providing safe, professional, and reliable non-emergency medical
+              transportation (NEMT) for individuals who need mobility support
             </p>
           </div>
 
-          {/* Trained Staff */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold text-[#0B3D5A] mb-3">👨‍⚕️ Trained & Certified Staff</h3>
-            <p className="text-gray-600">
-              Our drivers and medical escorts undergo rigorous ADA-compliant training to assist patients safely.
+          {/* Right Side - Image */}
+          <img
+            className="w-[770px] h-full rounded-r-xl object-cover"
+            alt="Rectangle"
+            src="https://c.animaapp.com/m8lsvibom5QJ9I/img/rectangle-24.png"
+          />
+        </div>
+      </div>
+
+      {/* Who We Are Section */}
+      <div className="flex flex-col items-center w-full p-10 bg-[#e9fff5] mx-auto">
+        <div className="py-2 flex flex-col items-center">
+          <h2 className="text-[#188754] text-3xl font-normal">WHO WE ARE</h2>
+          <img
+            className="w-[186px] h-[18px] mt-2"
+            alt="Group"
+            src="https://c.animaapp.com/m8lsvibom5QJ9I/img/group-12.png"
+          />
+        </div>
+
+        <div className="flex gap-16 items-center max-w-[1260px]">
+          {/* About Content */}
+          <div className="flex flex-col w-full">
+            <h3 className="text-[#3e3e3e] text-[40px] font-normal">
+              Pioneer Mobility Services
+            </h3>
+            <p className="text-[#3e3e3e] text-2xl leading-10 mt-4 max-w-[729px] text-justify">
+              We are a Washington State-based and family-owned leading provider
+              of non-emergency medical transportation (NEMT) services. <br />
+              We are committed to ensuring safe, timely, and comfortable rides for
+              individuals with medical and mobility needs. <br />
+              Our team consists of highly trained professionals, compassionate
+              drivers, and experienced coordinators who work together to remove
+              transportation barriers for seniors, patients, and individuals with
+              mobility challenges. <br />
+              Whether it’s a doctor’s appointment, dialysis treatment, hospital
+              discharge, or rehabilitation visit, we ensure that every passenger
+              receives the highest level of care and assistance.
             </p>
           </div>
 
-          {/* Partnerships */}
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold text-[#0B3D5A] mb-3">🤝 Trusted Partnerships</h3>
-            <p className="text-gray-600">
-              We work with hospitals, nursing homes, and Medicaid providers to serve our communities better.
+          {/* Services List */}
+          <div className="flex flex-col gap-4 w-full max-w-[960px]">
+            {[
+              "Medical Appointment Transport",
+              "Trained, Compassionate Drivers",
+              "Dialysis and Rehabilitation Rides",
+              "Hospital Discharge Assistance",
+              "Senior and Mobility Support",
+              "Safe, Timely Transportation",
+              "Patient-Centered Care",
+            ].map((service, index) => (
+              <div
+                key={index}
+                className="flex items-center bg-[#188754] text-white text-2xl font-semibold py-3 px-4 rounded-lg"
+              >
+                <img
+                  className="w-[30px] h-[30px] mr-3"
+                  alt="Check"
+                  src="https://c.animaapp.com/m8lsvibom5QJ9I/img/check--4--1-6.png"
+                />
+                {service}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Mission & Vision Section - Centered */}
+      <div className="flex flex-col items-center justify-center w-full bg-white py-20">
+        <div className="flex flex-col items-center">
+          <h2 className="text-[#188754] text-3xl font-semibold text-center">
+            MISSION AND VISION
+          </h2>
+          <img
+            className="w-[186px] mt-2"
+            alt="Underline"
+            src="https://c.animaapp.com/m8lsvibom5QJ9I/img/group-12-1.png"
+          />
+        </div>
+
+        {/* Centered Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-10 max-w-[1260px] w-full">
+          {/* Mission Card */}
+          <div className="bg-white rounded-[20px] border border-[#d7d7d7] p-8 text-center">
+            <h3 className="text-[#188754] text-[32px] font-semibold">
+              Our Mission
+            </h3>
+            <p className="text-[#636363] text-2xl text-justify leading-10 mt-4">
+              Our mission is to provide unparalleled non-emergency medical
+              transportation (NEMT) services tailored to meet the diverse
+              transportation needs of our clients. Whether it is for medical
+              appointments, rehabilitation sessions, routine health visits, or
+              specialized school transportation, we ensure our passengers feel
+              safe, valued, respected, and comfortable.
+            </p>
+          </div>
+
+          {/* Vision Card */}
+          <div className="bg-[#188754] rounded-[20px] p-8 text-center">
+            <h3 className="text-white text-[32px] font-semibold">
+              Our Vision
+            </h3>
+            <p className="text-white text-2xl text-justify leading-10 mt-4">
+              Our vision is to be the most trusted and accessible non-medical
+              emergency transportation provider, ensuring mobility is never a
+              barrier to healthcare through innovation, excellence, and
+              patient-first care.
             </p>
           </div>
         </div>
-
-        {/* Our Vision for the Future */}
-        <h2 className="text-3xl font-bold text-[#0B3D5A] mt-12 mb-6">Our Vision for the Future</h2>
-        <p className="text-lg text-gray-700">
-          We envision a future where accessible transportation is available to all,
-          ensuring every patient, regardless of mobility challenges, has a seamless and dignified journey.
-        </p>
       </div>
-    </section>
+    </div>
   );
-};
-
-export default AboutUs;
-
+}
