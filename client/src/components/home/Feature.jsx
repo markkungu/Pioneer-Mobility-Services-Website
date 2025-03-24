@@ -41,7 +41,7 @@ const FeaturesSection = () => {
   return (
     <div className="w-full flex flex-col items-center justify-center py-16 px-6 bg-[#EAFFF5]">
       {/* Section Header */}
-      <h2 className="text-4xl font-bold text-[#188754] mb-8">Why Choose Us</h2>
+      <h2 className="text-3xl font-bold text-[#188754] mb-8">Why Choose Us</h2>
 
       {/* Features Grid with Banner */}
       <div className="w-full max-w-[1264px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0">

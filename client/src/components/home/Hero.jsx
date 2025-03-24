@@ -3,7 +3,7 @@ import heroImage from "../../assets/hero.png";
 
 const HeroSection = () => {
   return (
-    <div className="relative z-10 flex flex-col md:flex-row items-center justify-center mx-4 bg-[#188754] text-white shadow-lg h-[500px] rounded-lg">
+    <div className=" flex flex-col md:flex-row items-center justify-center mx-4 bg-[#188754] text-white shadow-lg h-[500px] rounded-lg">
       {/* Left Section - Image */}
       <div className="w-full md:w-1/2 h-full">
         <img

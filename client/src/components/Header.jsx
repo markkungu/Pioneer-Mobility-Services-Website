@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 import logo from "../assets/LOGO PNG/header.png";
 
 const NAV_LINKS = [
-  { title: "Home", path: "/", subtitle: "Go to homepage" },
-  { title: "About", path: "/about", subtitle: "Learn about us" },
-  { title: "Services", path: "/services", subtitle: "What we offer" },
-  { title: "Bookings", path: "/bookings", subtitle: "Schedule a ride" },
+  { title: "Home", path: "/", subtitle: "How we help" },
+  { title: "About", path: "/about", subtitle: "Who we are" },
+  { title: "Services", path: "/services", subtitle: "Schedule a ride" },
+  { title: "Bookings", path: "/bookings", subtitle: "View your rides" },
   { title: "Contact", path: "/contact", subtitle: "Get in touch" },
   { title: "Profile", path: "/profile", subtitle: "Manage your account" },
 ];
