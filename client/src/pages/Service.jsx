@@ -6,6 +6,7 @@ import school from "../assets/services/school-transport.png";
 import cab from "../assets/services/cab.png";
 import book from "../assets/services/book-ride.png";
 
+
 const services = [
   {
     id: 1,
@@ -85,7 +86,7 @@ const Services = () => {
         <div className="text-center mt-4">
           <h2 className="text-[#188754] text-2xl font-bold">Choose an option below</h2>
           <img className="w-[150px] h-[14px] mx-auto mt-2" alt="Group" src="https://c.animaapp.com/m8mo09emU1GpO2/img/group-12.png" />
-        </div>
+        </div>                                        
 
         {/* Service Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 mt-6 pt-4 pb-8 w-full max-w-[1000px]">
