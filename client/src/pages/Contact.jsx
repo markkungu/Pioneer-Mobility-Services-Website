@@ -54,7 +54,7 @@ const Contact = () => {
             rounded-t-4xl md:rounded-l-4xl md:rounded-tr-none md:rounded-br-none"
         >
           <div className="text-center text-white">
-            <h1 className="text-4xl md:text-7xl font-extrabold [font-family:'Baloo_Bhai-Regular',Helvetica] text-center">
+            <h1 className="text-4xl md:text-7xl font-extrabold text-center">
               Get in Touch
             </h1>
             <img

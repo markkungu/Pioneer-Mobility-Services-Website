@@ -59,13 +59,13 @@ const Services = () => {
   {/* Left Section (Text) */}
   <div className="w-full lg:w-1/2 h-[400px] bg-[#188754] rounded-t-lg md:rounded-l-lg md:rounded-tr-none flex items-center justify-center p-6">
     <div className="text-center text-white">
-      <h1 className="text-3xl md:text-4xl font-bold">Book a Ride</h1>
+      <h1 className="text-4xl md:text-7xl font-extrabold text-center">Book a Ride</h1>
       <img
-        className="w-[180px] h-4 mt-2 mx-auto"
+        className="w-[80%] max-w-[500px] h-auto mt-2 mx-auto"
         alt="Vector"
         src="https://c.animaapp.com/m8mo09emU1GpO2/img/vector-1.svg"
       />
-      <p className="text-md md:text-lg p-3">
+      <p className="text-md md:text-xl p-3">
         Just a few steps to get you our fast service. Fill in the information below.
       </p>
     </div>
