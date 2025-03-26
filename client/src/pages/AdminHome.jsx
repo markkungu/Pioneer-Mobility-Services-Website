@@ -101,10 +101,10 @@ export default function AdminHome() {
         </div>
       </div>
 
-      {/* Visit Section */}
+      {/* header Section */}
       <div className="flex flex-col mt-10">
         <h2 className="text-[#188754] text-2xl text-center font-bold capitalize">
-          You Can Also Give Us A Visit
+        STAY UPDATED
         </h2>
         <img
           className="w-[200px] h-[14px] mx-auto mt-2"

@@ -44,7 +44,7 @@ const FeaturesSection = () => {
   <div className="flex flex-col items-center mb-8">
     <h2 className="text-3xl font-normal text-[#188754]">WHY CHOOSE US?</h2>
     <img
-      className="w-[186px] mt-2"
+      className="w-[186px] h-[18px] mt-2"
       alt="Underline"
       src="https://c.animaapp.com/m8lsvibom5QJ9I/img/group-12-1.png"
     />

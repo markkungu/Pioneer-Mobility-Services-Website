@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { LOCAL_HOST } from "../host.js";
+import admin from "../assets/admin.png";
 
 export default function Bookings() {
   const [bookings, setBookings] = useState([]);
@@ -61,59 +62,98 @@ export default function Bookings() {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Bookings</h2>
+      <div className="w-full flex flex-col items-center px-4 md:px-8 lg:px-16">
+                    <div className="w-full flex flex-col md:flex-row items-center">
+                      {/* Left Side - Green Section */}
+                      <div className="w-full md:w-1/2 min-h-[400px] bg-[#188754] rounded-t-lg md:rounded-l-lg md:rounded-tr-none flex flex-col items-center justify-center px-6 text-center">
+                        <h2 className="text-4xl md:text-7xl font-extrabold text-white">
+                          Hello Admin
+                        </h2>
+                        <img
+                          className="w-[50%] max-w-[300px] h-auto mt-2"
+                          alt="Vector"
+                          src="https://c.animaapp.com/m8lsvibom5QJ9I/img/vector-1.svg"
+                        />
+                        <p className="text-white text-lg md:text-xl leading-relaxed mt-4 max-w-[90%]">
+                          Manage the rides and users in the system efficiently.
+                        </p>
+                      </div>
+            
+                      {/* Right Side - Image */}
+                      <div className="w-full md:w-1/2">
+                        <img
+                          className="w-full h-[400px] object-cover rounded-b-lg md:rounded-r-lg md:rounded-bl-none"
+                          alt="Rectangle"
+                          src={admin}
+                        />
+                      </div>
+                    </div>
+                  </div>
+      
+                  <div className="flex flex-col mt-10">
+              <h2 className="text-[#188754] text-3xl text-center font-bold capitalize">
+              Manage rides
+              </h2>
+              <img
+                className="w-[200px] h-[14px] mx-auto mt-2"
+                alt="Group"
+                src="https://c.animaapp.com/m8mo09emU1GpO2/img/group-12.png"
+              />
+            </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="border p-2">Username</th>
-              <th className="border p-2">Email</th>
-              <th className="border p-2">Service</th>
-              <th className="border p-2">Origin</th>
-              <th className="border p-2">Destination</th>
-              <th className="border p-2">Time & Date</th>
-              <th className="border p-2">Total Price</th>
-              <th className="border p-2">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookings.length > 0 ? (
-              bookings.map((booking) => (
-                <tr key={booking._id} className="text-center">
-                  <td className="border p-2">
-                    {booking.userName} 
-                  </td>
-                  <td className="border p-2">{booking.email}</td>
-                  <td className="border p-2">{booking.service?.name}</td>
-                  <td className="border p-2">{booking.origin}</td>
-                  <td className="border p-2">{booking.destination}</td>
-                  <td className="border p-2">{booking.time} {booking.date}</td>
-                  <td className="border p-2">${booking.total_price}</td>
-                  <td className="border p-2">
-                    {booking.status === "pending" ? (
-                      <button
-                        onClick={() => handleConfirmDelivery(booking._id)}
-                        className="bg-green-500 text-white px-4 py-1 rounded-lg hover:bg-green-600"
-                      >
-                        Confirm Delivery
-                      </button>
-                    ) : (
-                      <span className="text-green-700 font-semibold">Delivered</span>
-                    )}
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="8" className="text-center text-gray-600 p-4">
-                  No bookings found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+      <div className="overflow-x-auto my-10">
+  <table className="w-full border-collapse">
+    <thead>
+      <tr className="bg-[#188754] text-white rounded-t-lg">
+        <th className="p-3 rounded-tl-lg">Username</th>
+        <th className="p-3">Email</th>
+        <th className="p-3">Service</th>
+        <th className="p-3">Origin</th>
+        <th className="p-3">Destination</th>
+        <th className="p-3">Time & Date</th>
+        <th className="p-3">Total Price</th>
+        <th className="p-3 rounded-tr-lg">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {bookings.length > 0 ? (
+        bookings.map((booking, index) => (
+          <tr
+            key={booking._id}
+            className={`text-center ${index % 2 === 0 ? "bg-white" : "bg-slate-100"}`}
+          >
+            <td className="p-3">{booking.userName}</td>
+            <td className="p-3">{booking.email}</td>
+            <td className="p-3">{booking.service?.name}</td>
+            <td className="p-3">{booking.origin}</td>
+            <td className="p-3">{booking.destination}</td>
+            <td className="p-3">{booking.time} {booking.date}</td>
+            <td className="p-3">${booking.total_price}</td>
+            <td className="p-3">
+              {booking.status === "pending" ? (
+                <button
+                  onClick={() => handleConfirmDelivery(booking._id)}
+                  className="bg-green-500 text-white px-4 py-1 rounded-lg hover:bg-green-600"
+                >
+                  Confirm Delivery
+                </button>
+              ) : (
+                <span className="text-green-700 font-semibold">Delivered</span>
+              )}
+            </td>
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td colSpan="8" className="text-center text-gray-600 p-4">
+            No bookings found.
+          </td>
+        </tr>
+      )}
+    </tbody>
+  </table>
+</div>
+
     </div>
   );
 }

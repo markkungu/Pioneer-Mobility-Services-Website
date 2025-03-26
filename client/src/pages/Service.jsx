@@ -82,7 +82,7 @@ const Services = () => {
 
         {/* Subtitle Section */}
         <div className="text-center mt-4">
-          <h2 className="text-[#188754] text-3xl xl:text-4xl font-bold">Choose an option below</h2>
+          <h2 className="text-[#188754] text-2xl xl:text-2xl uppercase font-bold">Choose an option below</h2>
           <img className="w-[150px] h-[14px] mx-auto mt-2" alt="Group" src="https://c.animaapp.com/m8mo09emU1GpO2/img/group-12.png" />
         </div>                                         
 

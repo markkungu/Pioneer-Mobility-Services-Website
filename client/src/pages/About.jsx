@@ -45,7 +45,7 @@ export default function AboutUs() {
   <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center max-w-[1260px]">
     {/* About Content */}
     <div className="flex flex-col w-full text-center lg:text-left">
-      <h3 className="text-[#3e3e3e] text-3xl md:text-[40px] font-normal">
+      <h3 className="text-[#3e3e3e] text-2xl md:text-[40px] font-bold">
         Pioneer Mobility Services
       </h3>
       <p className="text-[#3e3e3e] text-lg md:text-xl leading-8 md:leading-10 mt-4 max-w-[729px] text-justify mx-auto lg:mx-0">
