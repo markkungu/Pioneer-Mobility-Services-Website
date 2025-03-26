@@ -5,6 +5,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { LOCAL_HOST } from '../host.js';
+import { ToastContainer, toast } from "react-toastify";
 
 const stripePromise = loadStripe("pk_test_51QyDOpFkFc9MmOZc610AzrUEzDBuRZX41PCubdYY7vBiZVAlSaAYj9CQ9wkyK31MneUKyFtRL0XGsfuF09wrs5bP00fiqQQjaz");
 
@@ -66,19 +67,24 @@ const PaymentForm = ({ bookingData, amount, clientSecret }) => {
       const finalBookingData = {
         ...updatedBookingData,
         paymentIntentId: paymentIntent.id,
-      };
+      }; toast.success("✅ Booking confirmed!", {
+        position: "top-center",
+        style: { backgroundColor:"#fff" , color: "#188754" },
+      });
+    
+       
+        
 
       fetch(`${LOCAL_HOST}/api/user/saveBooking`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: token,
         },
         body: JSON.stringify({ bookingData: finalBookingData }),
       })
         .then((res) => res.json())
         .then(() => {
-          alert("Booking confirmed!");
           navigate("/bookings");
         })
         .catch((err) => console.error("Error saving booking:", err));
@@ -95,6 +101,7 @@ const PaymentForm = ({ bookingData, amount, clientSecret }) => {
 
   return (
     <form onSubmit={handleSubmit} className="p-2 m-4 border rounded-lg">
+      <ToastContainer />
       <h2 className="text-lg font-bold mb-2">Enter Payment Details</h2>
       <PaymentElement />
       {errorMessage && <div className="text-red-500">{errorMessage}</div>}
@@ -114,6 +121,7 @@ const Payment = () => {
   const data = location.state;
   const [clientSecret, setClientSecret] = useState(null);
   const token = localStorage.getItem("token");
+  console.log(data)
 
   useEffect(() => {
     if (!data || !data.total_price) return;
@@ -126,7 +134,7 @@ const Payment = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: token,
       },
       body: JSON.stringify({ bookingData: data }),
     })

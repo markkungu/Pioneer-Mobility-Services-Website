@@ -2,6 +2,7 @@ import { useState } from "react";
 import { LOCAL_HOST } from "../host.js";
 import { Phone, Mail, MapPin } from "lucide-react"; // Import Lucide icons
 import location from "../assets/location.png";
+import { ToastContainer, toast } from "react-toastify";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -34,9 +35,9 @@ const Contact = () => {
       console.log("📩 Server Response:", data);
 
       if (data.success) {
-        alert("✅ Email successfully sent!");
+        toast.success("✅ Email successfully sent!", { position: "top-center", style: { backgroundColor: "#fff", color: "#188754" } });
       } else {
-        alert("❌ Failed to send email, please try again later!");
+       toast.success("❌ Failed to send email, please try again later!", { position: "top-center", style: { backgroundColor: "#fff", color: "#188754" } });
       }
     } catch (err) {
       console.error("❌ Error sending email:", err);
@@ -47,6 +48,7 @@ const Contact = () => {
 
   return (
     <section className="container px-6 mx-auto mb-8 flex flex-col gap-12">
+        <ToastContainer />
       <div className="w-full flex flex-col md:flex-row items-stretch">
         {/* Left Section (Text) */}
         <div
@@ -90,16 +92,15 @@ const Contact = () => {
                   Name
                 </label>
                 <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Enter your name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full p-3 font-bold bg-slate-100 rounded-lg focus:outline-none text-lg placeholder:text-lg  placeholder:font-thin
-      "
-                  required
-                />
+  type="text"
+  id="name"
+  name="name"
+  placeholder="Enter your name"
+  value={formData.name}
+  onChange={handleChange}
+  className="w-full p-3 font-normal bg-slate-100 rounded-lg focus:outline-none text-lg placeholder:text-lg placeholder:font-normal"
+  required
+/>
               </div>
 
               {/* Email Field */}
@@ -117,7 +118,8 @@ const Contact = () => {
                   placeholder="Enter your email here"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full p-3 font-bold bg-slate-100 rounded-lg focus:outline-none text-lg  placeholder:text-xl  placeholder:font-thin"
+                  className="w-full p-3 font-normal bg-slate-100 rounded-lg focus:outline-none text-lg placeholder:text-lg placeholder:font-normal"
+                  
                   required
                 />
               </div>
@@ -137,7 +139,8 @@ const Contact = () => {
                   placeholder="What message/question do you have for us?"
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full p-3 font-bold  bg-slate-100 rounded-lg focus:outline-none text-lg placeholder:font-thin placeholder:text-xl "
+                  className="w-full p-3 font-normal bg-slate-100 rounded-lg focus:outline-none text-lg placeholder:text-lg placeholder:font-normal"
+  
                   required
                 />
               </div>

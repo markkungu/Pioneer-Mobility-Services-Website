@@ -5,6 +5,8 @@ import { LOCAL_HOST } from '../host.js';
 import heroImage from "../assets/hero.png";
 import { Link } from "react-router-dom";
 import logo from "../assets/LOGO PNG/header.png";
+import { ToastContainer, toast } from "react-toastify";
+
 
 
 const Profile = () => {
@@ -53,7 +55,7 @@ const Profile = () => {
   
       dispatch(updateUserSuccess(data));
       setIsEditing(false);
-      alert("Profile updated successfully!");
+      toast.success("Profile updated successfully!", { position: "top-center", style: { backgroundColor: "#fff", color: "#188754" } });
     } catch (error) {
       dispatch(updateUserFailure(error.message));
     }
@@ -120,6 +122,7 @@ const handleSignOut = async () => {
   className="min-h-screen flex items-center justify-center bg-cover bg-center px-4"
   style={{ backgroundImage: `url(${heroImage})` }}
 >
+<ToastContainer />
   <div className="w-full max-w-sm md:max-w-md lg:max-w-lg mx-auto my-10 p-6 bg-white rounded-lg shadow-md">
     <div className="flex justify-center">
       <Link to="/">
