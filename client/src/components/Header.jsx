@@ -28,9 +28,9 @@ const Header = () => {
         
         {/* Logo */}
         <div>
-          <Link to="/">
+          
             <img src={logo} alt="Logo" className="h-28 w-auto" />
-          </Link>
+          
         </div>
 
         {/* Desktop Navigation */}

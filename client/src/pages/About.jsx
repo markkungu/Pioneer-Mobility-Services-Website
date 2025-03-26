@@ -33,7 +33,7 @@ export default function AboutUs() {
 
       {/* Who We Are Section */}
       <div className="flex flex-col items-center w-full p-10 bg-[#e9fff5] mx-auto">
-  <div className="py-2 flex flex-col items-center text-center">
+  <div className="pt-2 pb-4 flex flex-col items-center text-center">
     <h2 className="text-[#188754] text-3xl font-normal">WHO WE ARE</h2>
     <img
       className="w-[186px] h-[18px] mt-2"

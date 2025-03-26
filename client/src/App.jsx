@@ -12,13 +12,14 @@ import React from "react";
 import Footer from "./components/Footer.jsx";
 import Scheduling from "./pages/Scheduling.jsx";
 import Payment from "./pages/Payment.jsx";
-import {PrivateRouter, AdminRouter} from "./components/PrivateRouter.jsx";
+import {PrivateRouter, AdminRouter, PreventAdminRouter} from "./components/PrivateRouter.jsx";
 import Profile from "./pages/Profile.jsx";
 import AdminBookings from "./pages/AdminBookings.jsx";
 import AdminUsers from "./pages/AdminUsers.jsx";
 import AdminSignIn from "./pages/AdminSignIn.jsx";
 import AdminSignUp from "./pages/AdminSignUp.jsx";
 import AdminHome from "./pages/AdminHome.jsx";
+
 
 export default function App() {
   return (
@@ -29,20 +30,24 @@ export default function App() {
 
         {/* Main Content */}
         <main className="flex-1 ">
-          <Routes>
+          <Routes >
+
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<Signup />} />
+
+            <Route element={<PreventAdminRouter/>}>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/services" element={<Service />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<Signup />} />
 
             <Route element={<PrivateRouter />}>
               <Route path="/scheduling" element={<Scheduling />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/bookings" element={<Booking />} />
               <Route path="/profile" element={<Profile />} />
+            </Route>
             </Route>
 
               <Route path="/adminsignup" element={<AdminSignUp />} />
