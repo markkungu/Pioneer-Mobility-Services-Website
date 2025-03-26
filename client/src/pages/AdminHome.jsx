@@ -23,7 +23,7 @@ export default function AdminHome() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
           credentials: "include",
         });
@@ -133,7 +133,7 @@ export default function AdminHome() {
             </>
           )}
           <button
-            onClick={() => navigate("/adminusers")}
+            onClick={() => navigate("/admin/users")}
             className="my-10 font-semibold text-white bg-[#188754] px-6 py-3 rounded-lg text-lg hover:bg-[#146c43] transition"
           >
             View Users
@@ -158,7 +158,7 @@ export default function AdminHome() {
             </>
           )}
           <button
-            onClick={() => navigate("/adminbookings")}
+            onClick={() => navigate("/admin/bookings")}
             className="my-10 font-semibold text-white bg-black px-6 py-3 rounded-lg text-lg hover:bg-gray-800 transition"
           >
             View Rides Booked

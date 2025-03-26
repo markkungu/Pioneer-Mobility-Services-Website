@@ -22,15 +22,16 @@ const PaymentForm = ({ bookingData, amount, clientSecret }) => {
   useEffect(() => {
     if (!bookingData || !bookingData.total_price || !currentUser) return;
 
-    console.log("user in browser", currentUser)
+    console.log("User in browser:", currentUser);
+    console.log("Received amount in PaymentForm:", amount);
+
     setUpdatedBookingData({
       ...bookingData,
       userId: currentUser._id,
       userName: `${currentUser.fname} ${currentUser.lname}`,
-      email: currentUser.email
+      email: currentUser.email,
     });
-    console.log("updatedBookingData", updatedBookingData);
-  }, [bookingData, currentUser]);
+  }, [bookingData, currentUser, amount]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,12 +70,14 @@ const PaymentForm = ({ bookingData, amount, clientSecret }) => {
 
       fetch(`${LOCAL_HOST}/api/user/saveBooking`, {
         method: "POST",
-        headers: { 'Content-Type': 'application/json',
-          Authorization: token, },
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({ bookingData: finalBookingData }),
       })
         .then((res) => res.json())
-        .then((data) => {
+        .then(() => {
           alert("Booking confirmed!");
           navigate("/bookings");
         })
@@ -100,7 +103,7 @@ const PaymentForm = ({ bookingData, amount, clientSecret }) => {
         disabled={!stripe || loading}
         className="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg"
       >
-        {loading ? "Processing..." : `Pay $${(amount / 100).toFixed(2)}`}
+        {loading ? "Processing..." : `Pay $${amount ? (amount / 100).toFixed(2) : "0.00"}`}
       </button>
     </form>
   );
@@ -110,20 +113,26 @@ const Payment = () => {
   const location = useLocation();
   const data = location.state;
   const [clientSecret, setClientSecret] = useState(null);
-  const amount = Math.round(data?.total_price * 100);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    if (!data) return;
+    if (!data || !data.total_price) return;
+
+    const amount = Math.round(data.total_price * 100); // Convert total price to cents
+    console.log("Booking Data:", data);
+    console.log("Calculated Amount:", amount);
 
     fetch(`${LOCAL_HOST}/api/user/booking`, {
       method: "POST",
-      headers: { 'Content-Type': 'application/json',
-          Authorization: token, },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({ bookingData: data }),
     })
       .then((res) => res.json())
       .then((response) => {
+        console.log("Server Response:", response);
         if (response.clientSecret) {
           setClientSecret(response.clientSecret);
         } else {
@@ -131,7 +140,7 @@ const Payment = () => {
         }
       })
       .catch((err) => console.error("Error fetching clientSecret:", err));
-  }, [data]);
+  }, [data, token]);
 
   if (!clientSecret) {
     return <p>Loading payment...</p>;
@@ -139,7 +148,7 @@ const Payment = () => {
 
   return (
     <Elements stripe={stripePromise} options={{ clientSecret }}>
-      <PaymentForm bookingData={data} amount={amount} clientSecret={clientSecret} />
+      <PaymentForm bookingData={data} amount={Math.round(data.total_price * 100)} clientSecret={clientSecret} />
     </Elements>
   );
 };

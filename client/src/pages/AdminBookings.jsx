@@ -14,7 +14,7 @@ export default function Bookings() {
           method: "GET",
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
           credentials: "include"
         });
@@ -39,7 +39,7 @@ export default function Bookings() {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
           credentials: "include"
         }

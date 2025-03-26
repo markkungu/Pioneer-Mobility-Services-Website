@@ -13,12 +13,13 @@ import heroImage from "../assets/hero.png";
 export default function Signin() {
   const [formData, setFormData] = useState({});
   const { loading, error } = useSelector((state) => state.user);
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -38,7 +39,13 @@ export default function Signin() {
       }
       dispatch(signInSuccess(data.user));
       localStorage.setItem("token", data.token);
-      Navigate("/");
+
+      // Redirect based on user role
+      if (data.user.isAdmin) {
+        navigate("/admin/home"); // Redirect admin to admin home
+      } else {
+        navigate("/"); // Redirect normal user to home
+      }
     } catch (error) {
       dispatch(signInFailure(error.message));
     }

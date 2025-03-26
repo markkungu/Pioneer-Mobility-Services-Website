@@ -17,7 +17,7 @@ export const booking = async (req, res, next) => {
             !bookingData.date || !bookingData.time || !bookingData.total_price ) {
             return next(errorHandler(400, "All booking fields are required"));
         }
-
+console.log(bookingData.total_price)
         // ✅ Convert price to cents
         const amount = Math.round(bookingData.total_price * 100); 
 
@@ -36,6 +36,7 @@ export const booking = async (req, res, next) => {
             return next(errorHandler(400, stripeError.message || "Payment failed, try again"));
         }
 
+        console.log(paymentIntent.client_secret)
         // ✅ Send clientSecret to frontend for confirmation
         res.status(200).json({
             clientSecret: paymentIntent.client_secret,

@@ -102,6 +102,7 @@ export default function Booking() {
       alert("Please fill in all required fields.");
       return;
     }
+    console.log(formData)
     navigate("/payment", { state: formData });
 3
   };

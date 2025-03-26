@@ -44,7 +44,12 @@ export default function Bookings() {
         `${LOCAL_HOST}/api/user/deletebooking?id=${bookingId}`,
         {
           method: "DELETE",
-        }
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        credentials: "include"
+      }
       );
 
       if (response.ok) {

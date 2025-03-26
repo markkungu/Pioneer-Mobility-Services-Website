@@ -16,8 +16,8 @@ import {PrivateRouter, AdminRouter, PreventAdminRouter} from "./components/Priva
 import Profile from "./pages/Profile.jsx";
 import AdminBookings from "./pages/AdminBookings.jsx";
 import AdminUsers from "./pages/AdminUsers.jsx";
-import AdminSignIn from "./pages/AdminSignIn.jsx";
-import AdminSignUp from "./pages/AdminSignUp.jsx";
+// import AdminSignIn from "./pages/AdminSignIn.jsx";
+// import AdminSignUp from "./pages/AdminSignUp.jsx";
 import AdminHome from "./pages/AdminHome.jsx";
 
 
@@ -50,13 +50,13 @@ export default function App() {
             </Route>
             </Route>
 
-              <Route path="/adminsignup" element={<AdminSignUp />} />
-              <Route path="/adminsignin" element={<AdminSignIn />} />
+              {/* <Route path="/adminsignup" element={<AdminSignUp />} />
+              <Route path="/adminsignin" element={<AdminSignIn />} /> */}
               
             <Route element={<AdminRouter />}>
-              <Route path="/adminhome" element={<AdminHome />} />
-              <Route path="/adminusers" element={<AdminUsers />} />
-              <Route path="/adminbookings" element={<AdminBookings />} />
+              <Route path="/admin/home" element={<AdminHome />} />
+              <Route path="/admin/users" element={<AdminUsers />} />
+              <Route path="/admin/bookings" element={<AdminBookings />} />
             </Route>
           </Routes>
         </main>

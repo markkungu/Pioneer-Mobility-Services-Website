@@ -11,7 +11,7 @@ export function PrivateRouter() {
 export function AdminRouter() {
   const { currentUser } = useSelector((state) => state.user);
 
-  return currentUser && currentUser.isAdmin ? <Outlet /> : <Navigate to="/adminsignin" />;
+  return currentUser && currentUser.isAdmin ? <Outlet /> : <Navigate to="/signin" />;
 }
 
 // Function to prevent admins from accessing user pages
