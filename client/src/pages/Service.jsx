@@ -6,7 +6,6 @@ import school from "../assets/services/school-transport.png";
 import cab from "../assets/services/cab.png";
 import book from "../assets/services/book-ride.png";
 
-
 const services = [
   {
     id: 1,
@@ -52,52 +51,51 @@ const Services = () => {
   return (
     <div className="bg-white flex flex-col items-center w-full min-h-screen">
       {/* Main Container */}
-      <div className="w-full flex flex-col items-center px-4 md:px-8 lg:px-16">
+      <div className="w-full flex flex-col items-center px-4 md:px-8 xl:px-16 max-w-screen-xl">
         
         {/* Hero Section */}
         <div className="w-full flex flex-col md:flex-row items-center">
-  {/* Left Section (Text) */}
-  <div className="w-full lg:w-1/2 h-[400px] bg-[#188754] rounded-t-lg md:rounded-l-lg md:rounded-tr-none flex items-center justify-center p-6">
-    <div className="text-center text-white">
-      <h1 className="text-4xl md:text-7xl font-extrabold text-center">Book a Ride</h1>
-      <img
-        className="w-[80%] max-w-[500px] h-auto mt-2 mx-auto"
-        alt="Vector"
-        src="https://c.animaapp.com/m8mo09emU1GpO2/img/vector-1.svg"
-      />
-      <p className="text-md md:text-xl p-3">
-        Just a few steps to get you our fast service. Fill in the information below.
-      </p>
-    </div>
-  </div>
+          {/* Left Section (Text) */}
+          <div className="w-full xl:w-1/2 min-h-[400px] bg-[#188754] rounded-t-lg md:rounded-l-lg md:rounded-tr-none flex items-center justify-center p-6">
+            <div className="text-center text-white max-w-screen-xl mx-auto">
+              <h1 className="text-4xl md:text-7xl font-extrabold text-center">Book a Ride</h1>
+              <img
+                className="w-[60%] max-w-[500px] h-auto mt-2 mx-auto"
+                alt="Vector"
+                src="https://c.animaapp.com/m8mo09emU1GpO2/img/vector-1.svg"
+              />
+              <p className="text-lg md:text-xl xl:text-2xl p-3">
+                Just a few steps to get you our fast service. Fill in the information below.
+              </p>
+            </div>
+          </div>
 
-  {/* Right Section (Image) */}
-  <div className="w-full lg:w-1/2">
-    <img 
-      className="w-full h-[400px] object-cover rounded-b-lg md:rounded-r-lg md:rounded-bl-none" 
-      alt="Booking process" 
-      src={book} 
-    />
-  </div>
-</div>
-
+          {/* Right Section (Image) */}
+          <div className="w-full xl:w-1/2">
+            <img 
+              className="w-full min-h-[400px] object-cover rounded-b-lg md:rounded-r-lg md:rounded-bl-none" 
+              alt="Booking process" 
+              src={book} 
+            />
+          </div>
+        </div>
 
         {/* Subtitle Section */}
         <div className="text-center mt-4">
-          <h2 className="text-[#188754] text-2xl font-bold">Choose an option below</h2>
+          <h2 className="text-[#188754] text-3xl xl:text-4xl font-bold">Choose an option below</h2>
           <img className="w-[150px] h-[14px] mx-auto mt-2" alt="Group" src="https://c.animaapp.com/m8mo09emU1GpO2/img/group-12.png" />
-        </div>                                        
+        </div>                                         
 
         {/* Service Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 mt-6 pt-4 pb-8 w-full max-w-[1000px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 xl:gap-12 mt-6 pt-4 pb-8 w-full max-w-[1200px]">
           {services.map((service) => (
-            <div key={service.id} className="bg-white rounded-lg border border-gray-300 shadow-md p-4 text-center">
-              <img className="w-full h-[180px] object-cover rounded-lg mb-3" alt={service.title} src={service.image} />
-              <h3 className="text-[#188754] text-xl font-semibold">{service.title}</h3>
-              <p className="text-gray-600 text-sm mt-1">{service.description}</p>
-              <p className="text-gray-800 text-lg font-bold mt-1">${service.base_price}</p>
+            <div key={service.id} className="bg-white rounded-lg border border-gray-300 shadow-md p-6 text-center">
+              <img className="w-full h-[200px] object-cover rounded-lg mb-3" alt={service.title} src={service.image} />
+              <h3 className="text-[#188754] text-2xl xl:text-3xl font-semibold">{service.title}</h3>
+              <p className="text-gray-600 text-lg xl:text-xl mt-1">{service.description}</p>
+              <p className="text-gray-800 text-2xl font-bold mt-1">${service.base_price}</p>
               <button 
-                className="mt-3 w-full bg-[#188754] text-white text-md font-semibold py-2 rounded-lg shadow-md hover:bg-[#166b4f] transition"
+                className="mt-3 w-full bg-[#188754] text-white text-lg xl:text-xl font-semibold py-3 rounded-lg shadow-md hover:bg-[#166b4f] transition"
                 onClick={() => handleSelectService(service)}
               >
                 Book a Ride

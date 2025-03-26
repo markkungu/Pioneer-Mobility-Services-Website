@@ -24,8 +24,19 @@ const testimonials = [
 const Testimonials = () => {
   return (
     <section className="py-16 bg-white">
-      <div className="container mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#188754] mb-6">Customer Feedback</h2>
+    <div className="container mx-auto text-center px-4">
+      {/* Section Header */}
+      <div className="flex flex-col items-center mb-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-[#188754] text-center">Customer Feedback</h2>
+        <img
+          className="w-[186px] mt-2"
+          alt="Underline"
+          src="https://c.animaapp.com/m8lsvibom5QJ9I/img/group-12-1.png"
+        />
+      </div>
+  
+      {/* Swiper Carousel - Full Width on Mobile, Contained on Larger Screens */}
+      <div className="w-full max-w-[1264px] mx-auto">
         <Swiper
           modules={[Pagination, Autoplay]}
           spaceBetween={30}
@@ -33,10 +44,10 @@ const Testimonials = () => {
           loop={true}
           autoplay={{ delay: 4000 }}
           pagination={{ clickable: true }}
-          className="w-full md:w-3/4 lg:w-1/2 mx-auto"
+          className="w-full sm:w-3/4 lg:w-1/2 mx-auto"
         >
           {testimonials.map((testimonial, index) => (
-            <SwiperSlide key={index} className=" p-6 rounded-lg shadow-md">
+            <SwiperSlide key={index} className="p-6 rounded-lg shadow-md bg-white">
               <p className="text-lg text-gray-700 italic">"{testimonial.review}"</p>
               <h3 className="mt-4 text-xl font-semibold text-[#188754]">{testimonial.name}</h3>
               <p className="text-gray-600">{testimonial.location}</p>
@@ -44,7 +55,9 @@ const Testimonials = () => {
           ))}
         </Swiper>
       </div>
-    </section>
+    </div>
+  </section>
+  
   );
 };
 
