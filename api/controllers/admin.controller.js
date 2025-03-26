@@ -60,3 +60,17 @@ export const confirmDelivery = async (req, res, next) => {
     }
 };
 
+export const getData = async (req, res, next) => {
+    try {
+        const totalUsers = await User.countDocuments(); // Count all users
+        const totalRides = await Booking.countDocuments(); // Count all rides
+    
+        return res.status(200).json({
+          totalUsers,
+          totalRides,
+        });
+      } catch (error) {
+        console.error("Error fetching admin stats:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+};

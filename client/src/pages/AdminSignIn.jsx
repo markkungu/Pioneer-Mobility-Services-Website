@@ -34,7 +34,7 @@ export default function AdminSignin() {
       }
       dispatch(signInSuccess(data.user));
       localStorage.setItem("token", data.admin_token);
-      Navigate("/adminusers")
+      Navigate("/adminhome")
     } catch (error) {
       dispatch(signInFailure(error.message));
     }

@@ -156,42 +156,45 @@ const Contact = () => {
 
       {/* Contact Information */}
       <div className="flex flex-col">
-      <h2 className="text-[#188754] text-2xl text-center font-bold capitalize" >You Can Also Give Us A Visit </h2>
-          <img className="w-[200px] h-[14px] mx-auto mt-2" alt="Group" src="https://c.animaapp.com/m8mo09emU1GpO2/img/group-12.png" />
-        </div>
+        <h2 className="text-[#188754] text-2xl text-center font-bold capitalize">
+          You Can Also Give Us A Visit{" "}
+        </h2>
+        <img
+          className="w-[200px] h-[14px] mx-auto mt-2"
+          alt="Group"
+          src="https://c.animaapp.com/m8mo09emU1GpO2/img/group-12.png"
+        />
+      </div>
       <div
         className="mx-auto w-9/10  shadow-lg border-b-slate-200 border-r-slate-300 p-6 rounded-lg bg-white
       flex flex-col lg:flex-row gap-8"
       >
-      
-
-       
-          <div className="w-full lg:w-1/2 ">
-            <img
-              className="w-full h-[300px] rounded-lg mt-2 mx-auto"
-              alt="Vector"
-              src={location}
-            />
-          </div>
-          <div className="w-full lg:w-1/2 flex flex-col">
-            <h3 className="text-xl font-semibold text-[#188754]  w-full lg:w-1/2 mb-4">
-              Contact Information
-            </h3>
-            <p className="text-gray-700 flex items-center gap-3 mb-2">
-              <Phone size={20} className="text-[#188754]" /> 206-307-7496 /
-              206-307-5575
-            </p>
-            <p className="text-gray-700 flex items-center gap-3 mb-2">
-              <Mail size={20} className="text-[#188754]" />{" "}
-              info@pioneermobilityservices.com
-            </p>
-            <p className="text-gray-700 flex items-center gap-3 mb-4">
-              <MapPin size={20} className="text-[#188754]" /> 123 Pioneer Mobility
-              Road, Washington, USA
-            </p>
-          </div>
+        <div className="w-full lg:w-1/2 ">
+          <img
+            className="w-full h-[300px] rounded-lg mt-2 mx-auto"
+            alt="Vector"
+            src={location}
+          />
         </div>
-      </section>
+        <div className="w-full lg:w-1/2 flex flex-col">
+          <h3 className="text-xl font-semibold text-[#188754]  w-full lg:w-1/2 mb-4">
+            Contact Information
+          </h3>
+          <p className="text-gray-700 flex items-center gap-3 mb-2">
+            <Phone size={20} className="text-[#188754]" /> 206-307-7496 /
+            206-307-5575
+          </p>
+          <p className="text-gray-700 flex items-center gap-3 mb-2">
+            <Mail size={20} className="text-[#188754]" />{" "}
+            info@pioneermobilityservices.com
+          </p>
+          <p className="text-gray-700 flex items-center gap-3 mb-4">
+            <MapPin size={20} className="text-[#188754]" /> 123 Pioneer Mobility
+            Road, Washington, USA
+          </p>
+        </div>
+      </div>
+    </section>
   );
 };
 

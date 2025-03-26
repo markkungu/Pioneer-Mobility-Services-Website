@@ -18,6 +18,7 @@ import AdminBookings from "./pages/AdminBookings.jsx";
 import AdminUsers from "./pages/AdminUsers.jsx";
 import AdminSignIn from "./pages/AdminSignIn.jsx";
 import AdminSignUp from "./pages/AdminSignUp.jsx";
+import AdminHome from "./pages/AdminHome.jsx";
 
 export default function App() {
   return (
@@ -48,6 +49,7 @@ export default function App() {
               <Route path="/adminsignin" element={<AdminSignIn />} />
               
             <Route element={<AdminRouter />}>
+              <Route path="/adminhome" element={<AdminHome />} />
               <Route path="/adminusers" element={<AdminUsers />} />
               <Route path="/adminbookings" element={<AdminBookings />} />
             </Route>

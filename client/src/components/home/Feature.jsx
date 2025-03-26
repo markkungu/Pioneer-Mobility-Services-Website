@@ -42,7 +42,7 @@ const FeaturesSection = () => {
     <div className="w-full flex flex-col items-center justify-center py-16 px-6 bg-[#EAFFF5]">
   {/* Section Header */}
   <div className="flex flex-col items-center mb-8">
-    <h2 className="text-3xl font-bold text-[#188754] text-center">Why Choose Us</h2>
+    <h2 className="text-3xl font-normal text-[#188754]">WHY CHOOSE US?</h2>
     <img
       className="w-[186px] mt-2"
       alt="Underline"
@@ -50,42 +50,43 @@ const FeaturesSection = () => {
     />
   </div>
 
-  {/* Features Grid */}
-  <div className="w-full max-w-[1264px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+  {/* Features Grid with Banner */}
+  <div className="w-full max-w-[1264px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
     
-    {/* Banner - Full Width on Mobile */}
-    <div className="w-full h-[420px] bg-[#188754] text-white p-10 flex flex-col justify-center md:col-span-2 lg:col-span-1">
-      <h2 className="text-5xl font-bold leading-tight">
-        Travel <br className="hidden md:block" /> With Confidence
+    {/* Banner - Adjusted height for mobile */}
+    <div className="w-full h-[320px] sm:h-[380px] lg:h-[420px] bg-[#188754] text-white p-6 sm:p-10 flex flex-col justify-center">
+      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+        Travel <br /> With Confidence
       </h2>
-      <p className="mt-6 text-lg">
+      <p className="mt-4 sm:mt-6 text-base sm:text-lg">
         From ADA-compliant vehicles to 24/7 support, we're dedicated to making your journey stress-free.
       </p>
     </div>
 
-    {/* Feature Cards - Full Width on Mobile, Grid on Larger Screens */}
-    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-0">
-      {features.map((item, index) => (
-        <div
-          key={index}
-          className="w-full bg-white border border-gray-200 rounded-none shadow-md overflow-hidden"
-        >
+    {/* Feature Cards - Adjusted image & text sizes for mobile */}
+    {features.map((item, index) => (
+      <div
+        key={index}
+        className="w-full bg-white border border-gray-200 rounded-none shadow-md overflow-hidden"
+      >
+        <div className="relative">
           <img
             src={item.image}
             alt={item.title}
-            className="w-full h-[200px] object-cover"
+            className="w-full h-[160px] sm:h-[200px] object-cover"
           />
-          <div className="p-6">
-            <h3 className="text-2xl text-[#188754] font-semibold">{item.title}</h3>
-            <p className="text-gray-700 text-lg mt-2">{item.description}</p>
-          </div>
         </div>
-      ))}
-    </div>
+        <div className="p-4 sm:p-6">
+          <h3 className="text-xl sm:text-2xl text-[#188754] font-semibold">{item.title}</h3>
+          <p className="text-gray-700 text-base sm:text-lg mt-2">{item.description}</p>
+        </div>
+      </div>
+    ))}
 
   </div>
 </div>
-  
+
+
   );
 };
 
